@@ -12,12 +12,12 @@ export default function Text(){
 
 
         <div>
-            {/* <div>
+            <div>
                 <form action="" onSubmit={(event) => event.preventDefault()}>
                     <InputPoid name="abrev" defultpoid={0} MyFunction={handlePoidChange}></InputPoid>
                 </form>
 
-            </div> */}
+            </div>
 
 
 
