@@ -1,0 +1,26 @@
+.textQualityContainer{
+    display: flex;
+    justify-content: space-between;
+}
+.pqheader{
+    width: 100%;
+    text-align: center;
+}
+.text{
+    border: 1px solid #00acee;
+    border-radius: 15px;
+    padding: 5% 10%;
+    box-shadow: 8px 8px 24px #00abee42 ;
+    margin: 5% 0;
+
+
+}
+.inputPoid{
+    width: 50px;
+    border: 2px solid rgba(128, 128, 128, 0.484);
+    border-radius: 5px;
+    /* font-weight: bold; */
+    /* color: rgba(128, 128, 128, 0.216); */
+    /* opacity: 0.5; */
+    
+}

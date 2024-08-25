@@ -1,22 +1,22 @@
+import { useState } from "react";
 
-
-export default function InputPoid({Name,MyFunction, defultpoid}){
-    const [poid, setPoid] = useState(defaultPoid); // Maintain internal poid state
-
+export default function InputPoid({ Name, MyFunction, defaultPoid }) {
+    // State variable to store the poid value
+    const [poid, setPoid] = useState(defaultPoid);
+  
     const handleChange = (event) => {
-        const newPoid = parseInt(event.target.value, 0); // Parse string to integer
-        setPoid(newPoid); // Update internal poid state
-        MyFunction(newPoid); // Call the provided onPoidChange function with the new value
+      const newPoid = parseInt(event.target.value, 10);
+      setPoid(newPoid);
+      MyFunction(newPoid);
     };
+  
     return(
        
         <div>
-          
-                <input type="checkbox" />
-                <span>{Name}</span>
-                
-                <input type="number" value={defultpoid} onChange={handleChange}/>
-           
+            {/* Display the name */}
+            <span>{Name}</span>
+            {/* Number input with handleChange handler */}
+            <input type="number" value={0} onChange={handleChange} />
         </div>
     )
 }
