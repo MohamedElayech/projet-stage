@@ -12,6 +12,7 @@ const [imgQuality, setImgQuality] = useState({
 const handleImgQualityChange = (event) => {
     const { name, value } = event.target;
     setImgQuality((prevImgQuality) => ({ ...prevImgQuality, [name]: value }));
+    console.log(imgQuality);
   };
   return(
     <div>
@@ -41,7 +42,7 @@ const handleImgQualityChange = (event) => {
           <br />
           <label>
             Choix stratégique des photos:
-            <select name="realPhotoUsage" value={imgQuality.realPhotoUsage} onChange={handleImgQualityChange}>
+            <select name="strategicPhotoChoice" value={imgQuality.strategicPhotoChoice} onChange={handleImgQualityChange}>
               <option value="">Select</option>
               <option value="faible">Faible</option>
               <option value="moyen">Moyen</option>

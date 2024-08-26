@@ -14,11 +14,22 @@ const handleVidQualityChange = (event) => {
   };
   return(
     <div>
-        <h2>Photo Quality:</h2>
+        <h2>Video Quality:</h2>
         <form>
           <label>
-            Degré d'utilisation des photos réelles:
-            <select name="realPhotoUsage" value={imgQuality.realPhotoUsage} onChange={handleImgQualityChange}>
+            Présence de vidéo:
+            <select name="prenseVid" value={vidQuality.presenceVid} onChange={handleVidQualityChange}>
+              <option value="">Select</option>
+              <option value="Oui">Oui</option>
+              <option value="Non">Non</option>
+            </select>
+            <label>Poids:</label>
+            <input type="text" style={{width:50}}></input>
+          </label>
+          <br />
+          <label>
+            Qualité de miniature:
+            <select name="miniature" value={vidQuality.miniature} onChange={handleVidQualityChange}>
               <option value="">Select</option>
               <option value="faible">Faible</option>
               <option value="moyen">Moyen</option>
@@ -28,28 +39,8 @@ const handleVidQualityChange = (event) => {
             <input type="text" style={{width:50}}></input>
           </label>
           <br />
-          <label>
-            Clarté de la photo:
-            <select name="photoClarity" value={imgQuality.photoClarity} onChange={handleImgQualityChange}>
-              <option value="">Select</option>
-              <option value="bruité">Bruité</option>
-              <option value="floue">Floue</option>
-            </select>
-            <InputPoids  defaultPoids={10} />
-          </label>
           <br />
-          <label>
-            Choix stratégique des photos:
-            <select name="realPhotoUsage" value={imgQuality.realPhotoUsage} onChange={handleImgQualityChange}>
-              <option value="">Select</option>
-              <option value="faible">Faible</option>
-              <option value="moyen">Moyen</option>
-              <option value="fort">Fort</option>
-            </select>
-            <InputPoids  defaultPoids={10} />
           <Add />
-          </label>
-          <br />
         </form>
             
     </div>

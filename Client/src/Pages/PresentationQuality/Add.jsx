@@ -3,7 +3,7 @@ import InputPoids from './InputPoids';
 
 export default function Add() {
   const [inputFields, setInputFields] = useState([
-    { id: 1, label: 'New Criterea 1', value: '', intensity: '' },
+    { id: 1, label: 'New Criterea 1', value: '', intensity: '',weight:'' },
   ]);
 
   const handleAddInputField = (event) => {
@@ -13,11 +13,12 @@ export default function Add() {
       label: `New Criterea ${inputFields.length + 1}`,
       value: '',
       intensity: '',
+      weight:''
     };
     setInputFields([...inputFields, newInputField]);
   };
 
-  const handleInputChange = (id, value, label, intensity) => {
+  const handleInputChange = (id, value, label, intensity, weight) => {
     setInputFields(
       inputFields.map((field) =>
         field.id === id ? { ...field, value, label, intensity } : field
@@ -47,7 +48,13 @@ export default function Add() {
             <option value="moyen">Moyen</option>
             <option value="fort">Fort</option>
           </select>
-          <InputPoids />
+          Poids:
+          <input
+            type="text"
+            value={inputField.weight}
+            onChange={(e) =>
+              handleInputChange(inputField.id, inputField.value, e.target.value, inputField.intensity, inputField.weight)
+            }/>
         </div>
       ))}
       <button onClick={handleAddInputField}>Add Input Field</button>
