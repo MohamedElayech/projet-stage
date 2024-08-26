@@ -1,0 +1,16 @@
+.picto{
+    border: 1px solid #00acee;
+    border-radius: 15px;
+    padding: 5% 10%;
+    box-shadow: 8px 8px 24px #00abee42 ;
+    margin: 5% 10%;
+
+
+}
+.weight{
+    width: 50px;
+    float: right;
+}
+.Star{
+    width: 100%;
+}

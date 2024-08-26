@@ -27,9 +27,9 @@ export default function Add() {
   };
 
   return (
-    <div>
+    <div >
       {inputFields.map((inputField, index) => (
-        <div key={inputField.id}>
+        <div key={inputField.id} className="Star" >
           <input
             type="text"
             value={inputField.label}
@@ -50,6 +50,7 @@ export default function Add() {
           </select>
           Poids:
           <input
+            className="weight"
             type="text"
             value={inputField.weight}
             onChange={(e) =>

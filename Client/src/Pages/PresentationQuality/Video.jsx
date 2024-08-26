@@ -2,6 +2,7 @@ import React from 'react';
 import InputPoids from './InputPoids';
 import {useState} from 'react';
 import Add from './Add';
+import './pic.css';
 
 export default function Video(){
 const [vidQuality, setVidQuality] = useState({
@@ -13,7 +14,7 @@ const handleVidQualityChange = (event) => {
     setVidQuality((prevVidQuality) => ({ ...prevVidQuality, [name]: value }));
   };
   return(
-    <div>
+    <div className="picto">
         <h2>Video Quality:</h2>
         <form>
           <label>
@@ -24,7 +25,7 @@ const handleVidQualityChange = (event) => {
               <option value="Non">Non</option>
             </select>
             <label>Poids:</label>
-            <input type="text" style={{width:50}}></input>
+            <input type="text" className="weight"></input>
           </label>
           <br />
           <label>
@@ -36,9 +37,8 @@ const handleVidQualityChange = (event) => {
               <option value="fort">Fort</option>
             </select>
             <label>Poids:</label>
-            <input type="text" style={{width:50}}></input>
+            <input type="text" className="weight"></input>
           </label>
-          <br />
           <br />
           <Add />
         </form>

@@ -2,7 +2,7 @@ import React from 'react';
 import InputPoids from './InputPoids';
 import {useState} from 'react';
 import Add from './Add';
-
+import './pic.css';
 export default function Picture(){
 const [imgQuality, setImgQuality] = useState({
     realPhotoUsage: '',
@@ -15,10 +15,10 @@ const handleImgQualityChange = (event) => {
     console.log(imgQuality);
   };
   return(
-    <div>
+    <div className="picto">
         <h2>Photo Quality:</h2>
         <form>
-          <label>
+          <div className="Star">
             Degré d'utilisation des photos réelles:
             <select name="realPhotoUsage" value={imgQuality.realPhotoUsage} onChange={handleImgQualityChange}>
               <option value="">Select</option>
@@ -27,20 +27,21 @@ const handleImgQualityChange = (event) => {
               <option value="fort">Fort</option>
             </select>
             <label>Poids:</label>
-            <input type="text" style={{width:50}}></input>
-          </label>
+            <input type="text" className="weight"></input>
+          </div>
           <br />
-          <label>
+          <div className="Star">
             Clarté de la photo:
             <select name="photoClarity" value={imgQuality.photoClarity} onChange={handleImgQualityChange}>
               <option value="">Select</option>
               <option value="bruité">Bruité</option>
               <option value="floue">Floue</option>
             </select>
-            <InputPoids  defaultPoids={10} />
-          </label>
+            <label>Poids:</label>
+            <input type="text" className="weight"></input>
+          </div>
           <br />
-          <label>
+          <div className="Star">
             Choix stratégique des photos:
             <select name="strategicPhotoChoice" value={imgQuality.strategicPhotoChoice} onChange={handleImgQualityChange}>
               <option value="">Select</option>
@@ -48,9 +49,11 @@ const handleImgQualityChange = (event) => {
               <option value="moyen">Moyen</option>
               <option value="fort">Fort</option>
             </select>
-            <InputPoids  defaultPoids={10} />
+            <label>Poids:</label>
+            <input type="text" className="weight"></input>
+          
+          </div>
           <Add />
-          </label>
           <br />
         </form>
             
