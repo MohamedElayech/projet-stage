@@ -32,7 +32,12 @@ function App() {
           <input
             type="number"
             value={abonnés}
-            onChange={(e) => setAbonnés(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value >= 0) { setAbonnés(e.target.value) }
+              else {
+                setAbonnés(0);
+              }
+            }}
           />
         </label>
       </div>
@@ -42,7 +47,14 @@ function App() {
           <input
             type="number"
             value={dateCreation}
-            onChange={(e) => setDateCreation(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value >= 0 && e.target.value <= 10) { setDateCreation(e.target.value) }
+              else {
+                setDateCreation(dateCreation);
+              }
+            }
+
+            }
           />
         </label>
       </div>
@@ -52,7 +64,12 @@ function App() {
           <input
             type="number"
             value={postesPublies}
-            onChange={(e) => setPostesPublies(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value >= 0) { setPostesPublies(e.target.value) }
+              else {
+                setPostesPublies(0);
+              }
+            }}
           />
         </label>
       </div>
@@ -62,7 +79,12 @@ function App() {
           <input
             type="number"
             value={frequencePublication}
-            onChange={(e) => setFrequencePublication(e.target.value)}
+            onChange={(e) => {
+              if (e.target.value >= 0) { setFrequencePublication(e.target.value) }
+              else {
+                setFrequencePublication(0);
+              }
+            }}
           />
         </label>
       </div>
