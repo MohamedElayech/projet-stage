@@ -63,27 +63,27 @@ export default function Text(){
 
 
             <h2 className="pqheader">Texte</h2>
-            <div className="presenceTexteConainer">
+            <div className="presenceTexteConainer sousCritereContainer">
                 <h3>Présence du texte</h3>
-                <div>
+                <div className="inputDiv">
                     <input type="checkbox" defaultChecked/>
                     <span>Présence du texte</span>
-                    <input type="number" className="inputPoid" placeholder="poid"/>
+                    <input type="number" className="inputPoid" placeholder="poids"/>
                 </div>
                 
             </div>
 
-            <div className="TextQuality">
+            <div className="TextQuality sousCritereContainer">
                 <h3>Lisibilité et clarté du texte</h3>
                 <div className="textQualityContainer">
                     <div>
-                        <div>
-                            <input type="checkbox" defaultChecked/>
-                            <span>Lisibilité</span>
-                            <input type="number" className="inputPoid" placeholder="poid"/>
-                        </div>
-                            <table className="Qualité">
-                                <caption>Lisibilité</caption>
+                            <div className="inputTable">
+                                <input type="checkbox" defaultChecked/>
+                                <span>Lisibilité</span>
+                                <input type="number" className="inputPoid" placeholder="poids"/>
+                            </div>
+                            <table className="Qualite">
+                                {/* <caption>Lisibilité</caption> */}
                                 <thead>
                                     <tr>
                                         <th></th>
@@ -95,40 +95,40 @@ export default function Text(){
                                     <tr>
                                         <td><input type="checkbox" defaultChecked /></td>
                                         <td>Pourcentage de mots uniques</td>
-                                        <td><input type="number" className="inputPoid" placeholder="poid" /></td>
+                                        <td><input type="number" className="inputPoid" placeholder="poids" /></td>
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" defaultChecked /></td>
                                         <td>Pourcentage de mots par phrase</td>
-                                        <td><input type="number" className="inputPoid" placeholder="poid" /></td>
+                                        <td><input type="number" className="inputPoid" placeholder="poids" /></td>
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" defaultChecked /></td>
                                         <td>Pourcentage de fautes d'orthographe</td>
-                                        <td><input type="number" className="inputPoid" placeholder="poid" /></td>
+                                        <td><input type="number" className="inputPoid" placeholder="poids" /></td>
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" defaultChecked /></td>
                                         <td>Pourcentage de parenthèses</td>
-                                        <td><input type="number" className="inputPoid" placeholder="poid" /></td>
+                                        <td><input type="number" className="inputPoid" placeholder="poids" /></td>
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" defaultChecked /></td>
                                         <td>Pourcentage d'abréviations</td>
-                                        <td><input type="number" className="inputPoid" placeholder="poid" /></td>
+                                        <td><input type="number" className="inputPoid" placeholder="poids" /></td>
                                     </tr>
                                     
                                 </tbody>
                             </table>
                         </div>
-                    <div>
-                        <div>
+                    <div >
+                        <div className="inputTable">
                             <input type="checkbox" defaultChecked/>
                             <span>Clarté</span>
-                            <input type="number" className="inputPoid" placeholder="poid"/>
+                            <input type="number" className="inputPoid" placeholder="poids"/>
                         </div>
-                        <table className="Clarté">
-                            <caption>Clarté</caption>
+                        <table className="Qualite">
+                            {/* <caption>Clarté</caption> */}
                         <thead>
                             <tr>
                                 <th></th>
@@ -140,22 +140,22 @@ export default function Text(){
                             <tr>
                                 <td><input type="checkbox" defaultChecked /></td>
                                 <td>Pourcentage de références croisées</td>
-                                <td><input type="number" className="inputPoid" placeholder="poid" /></td>
+                                <td><input type="number" className="inputPoid" placeholder="poids" /></td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" defaultChecked /></td>
                                 <td>Pourcentage de difficulté grammaticale</td>
-                                <td><input type="number" className="inputPoid" placeholder="poid" /></td>
+                                <td><input type="number" className="inputPoid" placeholder="poids" /></td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" defaultChecked /></td>
                                 <td>Pourcentage de polysémie</td>
-                                <td><input type="number" className="inputPoid" placeholder="poid" /></td>
+                                <td><input type="number" className="inputPoid" placeholder="poids" /></td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" defaultChecked /></td>
                                 <td>Pourcentage de synonymes</td>
-                                <td><input type="number" className="inputPoid" placeholder="poid" /></td>
+                                <td><input type="number" className="inputPoid" placeholder="poids" /></td>
                             </tr>
                         </tbody>
                         </table>
@@ -163,11 +163,47 @@ export default function Text(){
                 </div>
                 
             </div>
-            <div className="hashtags">
+            <div className="hashtags sousCritereContainer">
                 <h3>Qualité des Hashtags</h3>
+               
+                <div className="inputDiv">
+                    <input type="checkbox" defaultChecked/>
+                    <span>Critère de qualité des hashtags</span>
+                    <input type="number" className="inputPoid" placeholder="poids"/>
+                </div>
+                <div className="hashtagscontainer ">
+                    <div className="inputDiv">
+                        <input type="checkbox" defaultChecked/>
+                        <span>Présnece</span>
+                        <input type="number" className="inputPoid" placeholder="poids"/>
+                    </div>
+                    <div className="inputDiv">
+                        <input type="checkbox" defaultChecked/>
+                        <span>Position</span>
+                        <input type="number" className="inputPoid" placeholder="poids"/>
+                    </div>
+               
+                </div>
             </div>
-            <div className="emojis">
+            <div className="emojis sousCritereContainer">
                 <h3>Utilisation des pictogrammes/emojis</h3>
+                <div className="inputDiv">
+                    <input type="checkbox" defaultChecked/>
+                    <span>Critère de l'utilisation des pictogrammes</span>
+                    <input type="number" className="inputPoid" placeholder="poids"/>
+                </div>
+            </div>
+            <div className="others sousCritereContainer">
+                <h3>Ajouter des autres critères</h3>
+                <div className="ajoutCritere">
+                    <input type="checkbox" defaultChecked/>
+                    <input type="text" placeholder="Nom du critère" />
+                    <input type="number" placeholder="Poids du critere"/>
+                    <input type="text" placeholder="Valeur du critere ex:Faible" />
+                </div>
+                <div className="ajoutButtonContainer">
+                    <button className="ajoutButtun">Ajouter</button>
+                </div>
             </div>
             
         </div>

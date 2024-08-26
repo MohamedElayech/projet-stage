@@ -1,6 +1,6 @@
 .textQualityContainer{
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
 }
 .pqheader{
     width: 100%;
@@ -11,7 +11,7 @@
     border-radius: 15px;
     padding: 5% 10%;
     box-shadow: 8px 8px 24px #00abee42 ;
-    margin: 5% 0;
+    margin: 5% 10%;
 
 
 }
@@ -23,4 +23,54 @@
     /* color: rgba(128, 128, 128, 0.216); */
     /* opacity: 0.5; */
     
+}
+.inputTable{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+.Qualite{
+    margin: 30px 0;
+    line-height: 35px;
+}
+.inputDiv{
+    width: 40%;
+    display: flex;
+    justify-content: space-between;
+    
+}
+.hashtagscontainer{
+    display: flex;
+    justify-content: space-around;
+    margin: 20px;
+}
+.sousCritereContainer{
+    box-shadow: 6px 6px 30px #00abee42;
+    padding: 20px;
+    margin: 5vh 0;
+    border-radius: 15px;
+}
+.ajoutCritere{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 2% 5%;
+}
+.ajoutButtonContainer{
+    display: flex;
+    justify-content: center;
+    padding: 2% 0;
+}
+.ajoutButtun{
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    background-color: #00acee;
+    border: 2px solid #00acee;
+    border-radius: 8px;
+    cursor: pointer;
+}
+.ajoutButtun:hover{
+    color: #00acee;
+    background-color: white;
 }
