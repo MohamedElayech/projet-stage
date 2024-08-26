@@ -8,23 +8,24 @@ export default function Text(){
     // const handlePoidChange = (newPoid) => {
     //     setCount(newPoid); // Update count state based on the new poid
     //   };
-    const [qualite_texte,setQuaiteTexte]=useState([])
-    const [presence_texte,setPresenceTexte]=useState([])
-    const [emojies,setEmojis]=useState([])
-    const [syntaxique,setSyntaxique]=useState([])
-    const [semantique,setSemantique]=useState([])
-    const [motUnique,setMotUnique]=useState([])
-    const [motsPhrase,setMotsPhrase]=useState([])
-    const [abreviations,setAbreviations]=useState([])
-    const [parentheses,setParenthese]=useState([])
-    const [fautesOrthographe,setFautesOrthographe]=useState([])
-    const [crossreference,setCrossreference]=useState([])
-    const [diffuculteGrammaticale,setDiffuculteGrammaticale]=useState([])
-    const [polysemie,setPolysemie]=useState([])
-    const [synonymes,setSynonymes]=useState([])
-    const [heshtags,setHashtags]=useState([])
-    const [presenseHashtag,setPresenseHashtag]=useState([])
-    const [positionHashtag,setPdositionHashtag]=useState([])
+    const [qualite_texte,setQualiteTexte]=useState([{ value: '', poid: '' }])
+    const [presence_texte,setPresenceTexte]=useState([{ value: '', poid: '' }])
+    const [emojies,setEmojis]=useState([{ value: '', poid: '' }])
+    const [syntaxique,setSyntaxique]=useState([{ value: '', poid: '' }])
+    const [semantique,setSemantique]=useState([{ value: '', poid: '' }])
+    const [motUnique,setMotUnique]=useState([{ value: '', poid: '' }])
+    const [motsPhrase,setMotsPhrase]=useState([{ value: '', poid: '' }])
+    const [abreviations,setAbreviations]=useState([{ value: '', poid: '' }])
+    const [parentheses,setParenthese]=useState([{ value: '', poid: '' }])
+    const [fautesOrthographe,setFautesOrthographe]=useState([{ value: '', poid: '' }])
+    const [crossreference,setCrossreference]=useState([{ value: '', poid: '' }])
+    const [diffuculteGrammaticale,setDiffuculteGrammaticale]=useState([{ value: '', poid: '' }])
+    const [polysemie,setPolysemie]=useState([{ value: '', poid: '' }])
+    const [synonymes,setSynonymes]=useState([{ value: '', poid: '' }])
+    const [heshtags,setHashtags]=useState([{ value: '', poid: '' }])
+    const [presenseHashtag,setPresenseHashtag]=useState([{ value: '', poid: '' }])
+    const [positionHashtag,setPdositionHashtag]=useState([{ value: '', poid: '' }])
+    
 
     const textData = {
         "qualite_texte" : [0,'failbe'],
@@ -46,29 +47,131 @@ export default function Text(){
         "position_#":[0,'faible'],
 
     }
+
+
+    const handleQualitePoidChange = (event) => {
+        const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setQualiteTexte([{ value: qualite_texte[0].value, poid: poidValue }]);
+      };
+      
+      const handlePresencePoidChange = (event) => {
+        const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setPresenceTexte([{ value: presence_texte[0].value, poid: poidValue }]);
+      };
+      
+      const handleEmojisPoidChange = (event) => {
+        const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setEmojis([{ value: emojies[0].value, poid: poidValue }]);
+      };
+      
+      const handleSyntaxiquePoidChange = (event) => {
+        const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setSyntaxique([{ value: syntaxique[0].value, poid: poidValue }]);
+      };
+      
+      const handleSemantiquePoidChange = (event) => {
+        const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setSemantique([{ value: semantique[0].value, poid: poidValue}]);
+      };
+      
+      const handleMotUniquePoidChange = (event) => {
+        const poidValue = event.target.parentNode.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setMotUnique([{ value: motUnique[0].value, poid: poidValue }]);
+      };
+      
+      const handleMotsPhrasePoidChange = (event) => {
+        const poidValue = event.target.parentNode.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setMotsPhrase([{ value: motsPhrase[0].value, poid: poidValue }]);
+      };
+      
+      const handleAbreviationsPoidChange = (event) => {
+        const poidValue = event.target.parentNode.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setAbreviations([{ value: abreviations[0].value, poid: poidValue}]);
+      };
+      
+      const handleParenthesesPoidChange = (event) => {
+        const poidValue = event.target.parentNode.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setParenthese([{ value: parentheses[0].value, poid: poidValue }]);
+      };
+      
+      const handleFautesOrthographePoidChange = (event) => {
+        const poidValue = event.target.parentNode.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setFautesOrthographe([{ value: fautesOrthographe[0].value, poid: poidValue }]);
+      };
+      
+      const handleCrossreferencePoidChange = (event) => {
+        const poidValue = event.target.parentNode.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setCrossreference([{ value: crossreference[0].value, poid: poidValue}]);
+      };
+      
+      const handleDiffuculteGrammaticalePoidChange = (event) => {
+        const poidValue = event.target.parentNode.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setDiffuculteGrammaticale([{ value: diffuculteGrammaticale[0].value, poid: poidValue }]);
+      };
+      
+      const handlePolysemiePoidChange = (event) => {
+        const poidValue = event.target.parentNode.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setPolysemie([{ value: polysemie[0].value, poid: poidValue}]);
+      };
+      
+      const handleSynonymesPoidChange = (event) => {
+        const poidValue = event.target.parentNode.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setSynonymes([{ value: synonymes[0].value, poid: poidValue }]);
+      };
+      
+      const handleHeshtagsPoidChange = (event) => {
+        const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setHashtags([{ value: heshtags[0].value, poid: poidValue }]);
+      };
+      
+      const handlePresenseHashtagPoidChange = (event) => {
+        const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setPresenseHashtag([{ value: presenseHashtag[0].value, poid: poidValue }]);
+      };
+      
+      const handlePositionHashtagPoidChange = (event) => {
+        const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        setPdositionHashtag([{ value: positionHashtag[0].value, poid: poidValue }]);
+      };
     
+
+      console.log({
+        qualite_texte: qualite_texte[0].poid,
+        presence_texte: presence_texte[0].poid,
+        emojies: emojies[0].poid,
+        syntaxique: syntaxique[0].poid,
+        semantique: semantique[0].poid,
+        motUnique: motUnique[0].poid,
+        motsPhrase: motsPhrase[0].poid,
+        abreviations: abreviations[0].poid,
+        parentheses: parentheses[0].poid,
+        fautesOrthographe: fautesOrthographe[0].poid,
+        crossreference: crossreference[0].poid,
+        diffuculteGrammaticale: diffuculteGrammaticale[0].poid,
+        polysemie: polysemie[0].poid,
+        synonymes: synonymes[0].poid,
+        heshtags: heshtags[0].poid,
+        presenseHashtag: presenseHashtag[0].poid,
+        positionHashtag: positionHashtag[0].poid
+      });
     return(
         
 
 
         <div className="text">
-            <div>
+            {/* <div>
                 <form action="" onSubmit={(event) => event.preventDefault()}>
-                    {/* <InputPoid name="abrev" defaultPoid={0} MyFunction={setCount}></InputPoid> */}
+                    <InputPoid name="abrev" defaultPoid={0} MyFunction={setCount}></InputPoid>
                 </form>
 
-            </div>
-
-
-
-
+            </div> */}
             <h2 className="pqheader">Texte</h2>
             <div className="presenceTexteConainer sousCritereContainer">
                 <h3>Présence du texte</h3>
                 <div className="inputDiv">
                     <input type="checkbox" defaultChecked/>
                     <span>Présence du texte</span>
-                    <input type="number" className="inputPoid" placeholder="poids"/>
+                    <input type="number" className="inputPoid" placeholder="poids" onChange={handlePresencePoidChange}/>
                 </div>
                 
             </div>
@@ -80,7 +183,7 @@ export default function Text(){
                             <div className="inputTable">
                                 <input type="checkbox" defaultChecked/>
                                 <span>Lisibilité</span>
-                                <input type="number" className="inputPoid" placeholder="poids"/>
+                                <input type="number" className="inputPoid" placeholder="poids" onChange={handleSyntaxiquePoidChange}/>
                             </div>
                             <table className="Qualite">
                                 {/* <caption>Lisibilité</caption> */}
@@ -95,27 +198,27 @@ export default function Text(){
                                     <tr>
                                         <td><input type="checkbox" defaultChecked /></td>
                                         <td>Pourcentage de mots uniques</td>
-                                        <td><input type="number" className="inputPoid" placeholder="poids" /></td>
+                                        <td><input type="number" className="inputPoid" placeholder="poids" onChange={handleMotUniquePoidChange}/></td>
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" defaultChecked /></td>
                                         <td>Pourcentage de mots par phrase</td>
-                                        <td><input type="number" className="inputPoid" placeholder="poids" /></td>
+                                        <td><input type="number" className="inputPoid" placeholder="poids" onChange={handleMotsPhrasePoidChange}/></td>
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" defaultChecked /></td>
                                         <td>Pourcentage de fautes d'orthographe</td>
-                                        <td><input type="number" className="inputPoid" placeholder="poids" /></td>
+                                        <td><input type="number" className="inputPoid" placeholder="poids" onChange={handleFautesOrthographePoidChange}/></td>
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" defaultChecked /></td>
                                         <td>Pourcentage de parenthèses</td>
-                                        <td><input type="number" className="inputPoid" placeholder="poids" /></td>
+                                        <td><input type="number" className="inputPoid" placeholder="poids" onChange={handleParenthesesPoidChange}/></td>
                                     </tr>
                                     <tr>
                                         <td><input type="checkbox" defaultChecked /></td>
                                         <td>Pourcentage d'abréviations</td>
-                                        <td><input type="number" className="inputPoid" placeholder="poids" /></td>
+                                        <td><input type="number" className="inputPoid" placeholder="poids" onChange={handleAbreviationsPoidChange}/></td>
                                     </tr>
                                     
                                 </tbody>
@@ -125,7 +228,7 @@ export default function Text(){
                         <div className="inputTable">
                             <input type="checkbox" defaultChecked/>
                             <span>Clarté</span>
-                            <input type="number" className="inputPoid" placeholder="poids"/>
+                            <input type="number" className="inputPoid" placeholder="poids" onChange={handleSemantiquePoidChange}/>
                         </div>
                         <table className="Qualite">
                             {/* <caption>Clarté</caption> */}
@@ -138,24 +241,24 @@ export default function Text(){
                         </thead>
                         <tbody>
                             <tr>
-                                <td><input type="checkbox" defaultChecked /></td>
+                                <td><input type="checkbox" defaultChecked onChange={handleCrossreferencePoidChange} /></td>
                                 <td>Pourcentage de références croisées</td>
                                 <td><input type="number" className="inputPoid" placeholder="poids" /></td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" defaultChecked /></td>
                                 <td>Pourcentage de difficulté grammaticale</td>
-                                <td><input type="number" className="inputPoid" placeholder="poids" /></td>
+                                <td><input type="number" className="inputPoid" placeholder="poids" onChange={handleDiffuculteGrammaticalePoidChange}/></td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" defaultChecked /></td>
                                 <td>Pourcentage de polysémie</td>
-                                <td><input type="number" className="inputPoid" placeholder="poids" /></td>
+                                <td><input type="number" className="inputPoid" placeholder="poids" onChange={handlePolysemiePoidChange}/></td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" defaultChecked /></td>
                                 <td>Pourcentage de synonymes</td>
-                                <td><input type="number" className="inputPoid" placeholder="poids" /></td>
+                                <td><input type="number" className="inputPoid" placeholder="poids" onChange={handleSynonymesPoidChange}/></td>
                             </tr>
                         </tbody>
                         </table>
@@ -169,18 +272,18 @@ export default function Text(){
                 <div className="inputDiv">
                     <input type="checkbox" defaultChecked/>
                     <span>Critère de qualité des hashtags</span>
-                    <input type="number" className="inputPoid" placeholder="poids"/>
+                    <input type="number" className="inputPoid" placeholder="poids" onChange={handleHeshtagsPoidChange}/>
                 </div>
                 <div className="hashtagscontainer ">
                     <div className="inputDiv">
                         <input type="checkbox" defaultChecked/>
                         <span>Présnece</span>
-                        <input type="number" className="inputPoid" placeholder="poids"/>
+                        <input type="number" className="inputPoid" placeholder="poids" onChange={handlePresenseHashtagPoidChange}/>
                     </div>
                     <div className="inputDiv">
                         <input type="checkbox" defaultChecked/>
                         <span>Position</span>
-                        <input type="number" className="inputPoid" placeholder="poids"/>
+                        <input type="number" className="inputPoid" placeholder="poids" onChange={handlePositionHashtagPoidChange}/>
                     </div>
                
                 </div>
@@ -190,7 +293,7 @@ export default function Text(){
                 <div className="inputDiv">
                     <input type="checkbox" defaultChecked/>
                     <span>Critère de l'utilisation des pictogrammes</span>
-                    <input type="number" className="inputPoid" placeholder="poids"/>
+                    <input type="number" className="inputPoid" placeholder="poids" onChange={handleEmojisPoidChange}/>
                 </div>
             </div>
             <div className="others sousCritereContainer">
