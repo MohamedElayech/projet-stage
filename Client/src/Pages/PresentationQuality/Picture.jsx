@@ -15,9 +15,10 @@ const handleImgQualityChange = (event) => {
     console.log(imgQuality);
   };
   return(
+    
     <div className="picto">
-        <h2>Photo Quality:</h2>
-        <form>
+        
+        <form className="lama">
           <div className="Star">
             Degré d'utilisation des photos réelles:
             <select name="realPhotoUsage" value={imgQuality.realPhotoUsage} onChange={handleImgQualityChange}>
@@ -26,8 +27,8 @@ const handleImgQualityChange = (event) => {
               <option value="moyen">Moyen</option>
               <option value="fort">Fort</option>
             </select>
-            <label>Poids:</label>
-            <input type="text" className="weight"></input>
+            <label className="label">Poids:</label>
+            <input type="number" className="weight"></input>
           </div>
           <br />
           <div className="Star">
@@ -37,8 +38,8 @@ const handleImgQualityChange = (event) => {
               <option value="bruité">Bruité</option>
               <option value="floue">Floue</option>
             </select>
-            <label>Poids:</label>
-            <input type="text" className="weight"></input>
+            <label className="label">Poids:</label>
+            <input type="number" className="weight"></input>
           </div>
           <br />
           <div className="Star">
@@ -49,8 +50,8 @@ const handleImgQualityChange = (event) => {
               <option value="moyen">Moyen</option>
               <option value="fort">Fort</option>
             </select>
-            <label>Poids:</label>
-            <input type="text" className="weight"></input>
+            <label className="label">Poids:</label>
+            <input type="number" className="weight"></input>
           
           </div>
           <Add />

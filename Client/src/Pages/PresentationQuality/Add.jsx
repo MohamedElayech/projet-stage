@@ -21,13 +21,18 @@ export default function Add() {
   const handleInputChange = (id, value, label, intensity, weight) => {
     setInputFields(
       inputFields.map((field) =>
-        field.id === id ? { ...field, value, label, intensity } : field
+        field.id === id ? { ...field, value, label, intensity, weight } : field
       )
     );
   };
-
+  const handleWeightChange = (id, value, label, intensity, weight) => {
+    setInputFields(
+      inputFields.map((field) =>
+        field.id === id ? { ...field, value, label, intensity, weight } : field
+      )
+    );}
   return (
-    <div >
+    < >
       {inputFields.map((inputField, index) => (
         <div key={inputField.id} className="Star" >
           <input
@@ -48,17 +53,17 @@ export default function Add() {
             <option value="moyen">Moyen</option>
             <option value="fort">Fort</option>
           </select>
-          Poids:
+          <label className="label">Poids:</label>
           <input
             className="weight"
-            type="text"
+            type="number"
             value={inputField.weight}
             onChange={(e) =>
-              handleInputChange(inputField.id, inputField.value, e.target.value, inputField.intensity, inputField.weight)
+              handleWeightChange(inputField.id, inputField.value, inputField.label, inputField.intensity, e.target.value)
             }/>
         </div>
       ))}
-      <button onClick={handleAddInputField}>Add Input Field</button>
-    </div>
+      <button onClick={handleAddInputField} className="submit">Add Input Field</button>
+    </>
   );
 }

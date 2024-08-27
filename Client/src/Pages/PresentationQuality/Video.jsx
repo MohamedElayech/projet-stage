@@ -17,7 +17,7 @@ const handleVidQualityChange = (event) => {
     <div className="picto">
         <h2>Video Quality:</h2>
         <form>
-          <label>
+          <label className="Star">
             Présence de vidéo:
             <select name="prenseVid" value={vidQuality.presenceVid} onChange={handleVidQualityChange}>
               <option value="">Select</option>
@@ -25,10 +25,10 @@ const handleVidQualityChange = (event) => {
               <option value="Non">Non</option>
             </select>
             <label>Poids:</label>
-            <input type="text" className="weight"></input>
+            <input type="number" className="weight"></input>
           </label>
           <br />
-          <label>
+          <label className="Star">
             Qualité de miniature:
             <select name="miniature" value={vidQuality.miniature} onChange={handleVidQualityChange}>
               <option value="">Select</option>
@@ -37,7 +37,7 @@ const handleVidQualityChange = (event) => {
               <option value="fort">Fort</option>
             </select>
             <label>Poids:</label>
-            <input type="text" className="weight"></input>
+            <input type="number" className="weight"></input>
           </label>
           <br />
           <Add />

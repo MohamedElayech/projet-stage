@@ -9,8 +9,33 @@
 }
 .weight{
     width: 50px;
-    float: right;
+    height:20px;
+    
+    float:right;
 }
 .Star{
-    width: 100%;
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr 1fr;
+    grid-gap: 10px; 
+}
+select{
+    height:20px;
+    cursor: pointer;
+
+}
+.submit{
+    margin-top:20px;
+    background-color: #0084ff; /* Light blue */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px; /* Slightly rounded corners */
+    text-decoration: none; /* Remove default link underline */
+    font-weight: bold;
+    display: inline-block;
+    cursor: pointer;
+}
+.titre{
+    text-align: center;
+    margin-top: 50px;
 }
