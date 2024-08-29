@@ -1,0 +1,223 @@
+/* Styles pour le conteneur principal */
+.container {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #ffffff;
+    color: #14171A;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80% ;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
+    justify-content: center;
+  }
+  
+  
+  .criterion-button, .default-button, .modified-button {
+    padding: 10px 20px;
+    margin-right: 10px;
+    border: 1px solid #1DA1F2;
+    border-radius: 9999px;
+    background-color: #ffffff;
+    color: #1DA1F2;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .criterion-button.active, .default-button.active, .modified-button.active {
+    background-color: #1DA1F2;
+    color: white;
+  }
+  
+  .submit-button {
+    padding: 10px 20px;
+    border: none;
+    border-radius: 9999px;
+    background-color: #1DA1F2;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .submit-button:hover {
+    background-color: #0d8bec;
+  }
+  
+  .submit-button:disabled {
+    background-color: #AAB8C2;
+    cursor: not-allowed;
+  }
+  
+  /* Styles pour les étapes */
+  .step1, .step2, .step3 {
+    margin-top: 20px;
+  }
+  
+  /* Styles pour les options des critères */
+  .criterium-options {
+    margin-bottom: 20px;
+  }
+  
+  .criterium-options.hidden {
+    display: none;
+  }
+  
+  /* Styles pour les cases à cocher */
+  .checkbox-container {
+    display: block;
+    position: relative;
+    padding-left: 35px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    user-select: none;
+    color: #14171A;
+  }
+  
+  .checkbox-container input {
+    position: absolute;
+    opacity: 0;
+    cursor: pointer;
+    height: 0;
+    width: 0;
+  }
+  
+  .checkmark {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 20px;
+    width: 20px;
+    background-color: #AAB8C2;
+    border-radius: 50%;
+  }
+  
+  .checkbox-container input:checked ~ .checkmark {
+    background-color: #1DA1F2;
+  }
+  
+  .checkmark:after {
+    content: "";
+    position: absolute;
+    display: none;
+  }
+  
+  .checkbox-container input:checked ~ .checkmark:after {
+    display: block;
+  }
+  
+  .checkbox-container .checkmark:after {
+    left: 7px;
+    top: 3px;
+    width: 5px;
+    height: 10px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+  }
+  
+  /* Styles pour les poids et les cartes */
+  .weights {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  
+  .subcriteria {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .subcriteria h3 {
+    margin-bottom: 10px;
+  }
+  
+  .subcriteria div {
+    margin-bottom: 10px;
+  }
+  
+  .card {
+    background-color: #ffffff;
+    border: 1px solid #E1E8ED;
+    border-radius: 16px;
+    padding: 20px;
+    width: 300px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  .card h3 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #14171A;
+  }
+  
+  .input-group {
+    margin-bottom: 10px;
+    position: relative;
+  }
+  
+  .input-group label {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+  }
+  
+  .input-group input[type="number"] {
+    width: 80px;
+    margin-left: 10px;
+    padding: 5px;
+    border: 1px solid #E1E8ED;
+    border-radius: 4px;
+  }
+  
+  .help-message {
+    display: block;
+    font-size: 14px;
+    color: #657786;
+    margin-left: 10px;
+    position: absolute;
+    top: 50%;
+    left: calc(100% + 10px);
+    transform: translateY(-50%);
+  }
+  
+  /* Styles pour le conteneur des résultats */
+  .resultats1-container, .resultats2-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 16px;
+    margin-top: 16px;
+  }
+  
+  /* Styles pour les carrés de sous-critères */
+  .critere-carre {
+    width: 150px;
+    height: 150px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    border-radius: 16px;
+    color: white;
+    font-weight: bold;
+  }
+  
+  /* Couleur pour les sous-critères du critère 1 */
+  .critere1 {
+    background-color: #17BF63; /* Vert Twitter */
+  }
+  
+  /* Couleur pour les sous-critères du critère 2 */
+  .critere2 {
+    background-color: #1DA1F2; /* Bleu Twitter */
+  }
+  
+  .chart-container {
+    width: 300px;
+    height: 300px;
+    display: flex;
+    width: fit-content;
+  }
+  
+  #gauge-chart text {
+    fill: black;
+  }
