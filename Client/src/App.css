@@ -1,0 +1,236 @@
+.verified-icon {
+  color: blue;
+  margin-bottom: -3px;
+}
+
+.global {
+  margin-left: 170px;
+  width: 1000px;
+}
+
+label {
+  font-weight: bold;
+}
+
+input {
+  height: 23px;
+}
+
+.head {
+  text-align: center;
+  color: darkblue;
+  font-family: cursive;
+  font-size: 1.8em;
+  font-weight: bold;
+  margin-top: 5px;
+  border-radius: 10px;
+  margin-bottom: 10px;
+  text-decoration: double;
+
+}
+
+.cocheBleue {
+  margin-top: 20px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  font-family: cursive;
+  font-weight: 500;
+  font-size: larger;
+}
+
+form {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin-top: 30px;
+}
+
+#dtype-compte {
+  text-align: center;
+  font-family: cursive;
+  font-size: larger;
+  font-weight: 300;
+}
+
+#select {
+  margin-top: -40px;
+  width: 700px;
+  height: 35px;
+  border-radius: 7px;
+  font-family: cursive;
+  font-size: medium;
+  font-weight: lighter;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+#dtype-entreprise {
+  font-family: cursive;
+  font-size: medium;
+  font-weight: lighter;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.type-entreprise {
+  margin-top: 14px;
+  margin-left: 40px;
+}
+
+.every {
+  text-align: center;
+  margin-top: 30px;
+}
+
+#dnombre-abonne {
+  margin-top: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding-bottom: 20px;
+  border-radius: 5px;
+}
+
+#dnombre-publicatons {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding-bottom: 20px;
+  border-radius: 5px;
+}
+
+#dfrequence {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding-bottom: 20px;
+  border-radius: 5px;
+
+}
+
+#dnombre-annee {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding-bottom: 20px;
+  border-radius: 5px;
+}
+
+#dajouter-critere {
+  box-shadow: 0 0 10px rgba(59, 57, 57, 0.5);
+  padding-bottom: 20px;
+  border-radius: 5px;
+  margin: 5px 0px;
+  padding-top: 10px;
+}
+
+#calculer {
+  box-shadow: 0 0 10px rgba(87, 82, 82, 0.5);
+  padding-bottom: 20px;
+  border-radius: 5px;
+  margin: 5px 0px;
+  padding-top: 10px;
+}
+
+.calculer:hover {
+  color: white;
+}
+
+.ajouter-critere:hover {
+  color: white;
+}
+
+.titre {
+  margin-bottom: 5px;
+  color: black;
+  font-size: 1.3em;
+  font-weight: bold;
+  font-family: cursive;
+  font-weight: 600;
+
+}
+
+#seuil {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 100px;
+  height: 30;
+  border-radius: 7px;
+  text-align: center;
+
+}
+
+#poids {
+  margin-left: 10px;
+  margin-right: 10px;
+  width: 50px;
+  height: 30;
+  border-radius: 7px;
+  text-align: center;
+
+}
+
+#nombre-abonne {
+  width: 300px;
+  margin: 0px 10px;
+  border-radius: 5px;
+}
+
+#nombre-annee {
+  width: 300px;
+  margin: 0px 10px;
+  border-radius: 5px;
+}
+
+#nombre-publications {
+  width: 300px;
+  margin: 0px 10px;
+  border-radius: 5px;
+}
+
+#frequence {
+  width: 300px;
+  margin: 0px 10px;
+  border-radius: 5px;
+}
+
+.ajouter-critere {
+  width: 300px;
+  height: 45px;
+  font-family: cursive;
+  font-weight: 700;
+  border-radius: 10px;
+  background-color: blue;
+  font-size: larger;
+  cursor: pointer;
+}
+
+.calculer {
+  width: 700px;
+  height: 45px;
+  font-family: cursive;
+  font-weight: 700;
+  border-radius: 10px;
+  background-color: blue;
+  font-size: larger;
+  cursor: pointer;
+}
+
+.type {
+  font-family: cursive;
+}
+
+.select {
+  border: none;
+}
+
+.type-entreprise {
+  cursor: pointer;
+}
+
+.coche {
+  cursor: pointer;
+  margin-right: 5px;
+  margin-bottom: -5px;
+  height: 15px;
+  width: auto;
+}
+
+.switch {
+  margin-left: 50px;
+
+}
