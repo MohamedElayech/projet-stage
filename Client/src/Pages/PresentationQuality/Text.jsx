@@ -159,15 +159,13 @@ export default function Text(){
 
 
         <div className="text">
-            {/* <div>
-                <form action="" onSubmit={(event) => event.preventDefault()}>
-                    <InputPoid name="abrev" defaultPoid={0} MyFunction={setCount}></InputPoid>
-                </form>
-
-            </div> */}
-            <h2 className="pqheader">Texte</h2>
+            <div className="textTitle">
+                <h2 className="pqheader">Texte</h2>
+                <input type="checkbox" defaultChecked/>
+            </div>
+            
             <div className="presenceTexteConainer sousCritereContainer">
-                <h3>Présence du texte</h3>
+                <h3 >Présence du texte</h3>
                 <div className="inputDiv">
                     <input type="checkbox" defaultChecked/>
                     <span>Présence du texte</span>
@@ -302,7 +300,12 @@ export default function Text(){
                     <input type="checkbox" defaultChecked/>
                     <input type="text" placeholder="Nom du critère" />
                     <input type="number" placeholder="Poids du critere"/>
-                    <input type="text" placeholder="Valeur du critere ex:Faible" />
+                    <select name="" id="">
+                        <option value="">choisir un niveau</option>
+                        <option value="">Faible</option>
+                        <option value="">Moyen</option>
+                        <option value="">Fort</option>
+                    </select>
                 </div>
                 <div className="ajoutButtonContainer">
                     <button className="ajoutButtun">Ajouter</button>

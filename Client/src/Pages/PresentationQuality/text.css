@@ -1,10 +1,17 @@
+/* *{color: white;} */
+
+.pageTitle{
+    margin: 10vw 5vh;
+}
 .textQualityContainer{
     display: flex;
     justify-content: space-around;
 }
 .pqheader{
     width: 100%;
-    text-align: center;
+    /* text-align: center; */
+    
+    font-size: 30px;
 }
 .text{
     border: 1px solid #00acee;
@@ -45,10 +52,12 @@
     margin: 20px;
 }
 .sousCritereContainer{
-    box-shadow: 6px 6px 30px #00abee42;
+    /* box-shadow: 6px 6px 30px #00abee42; */
     padding: 20px;
-    margin: 5vh 0;
-    border-radius: 15px;
+    /* margin: 5vh 0; */
+    /* border-radius: 15px; */
+    border: 1px solid grey;
+    width: 50vw;
 }
 .ajoutCritere{
     display: flex;
@@ -73,4 +82,12 @@
 .ajoutButtun:hover{
     color: #00acee;
     background-color: white;
+}
+
+.textTitle{
+    display: flex;
+    width: 20%;
+    align-items: center;
+    margin-left: 20px;
+    margin-bottom: 20px;
 }
