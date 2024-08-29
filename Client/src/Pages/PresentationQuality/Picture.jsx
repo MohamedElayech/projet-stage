@@ -17,7 +17,7 @@ const handleImgQualityChange = (event) => {
   return(
     
     <div className="picto">
-        
+        <h2>Picture Quality:</h2>
         <form className="lama">
           <div className="Star">
             Degré d'utilisation des photos réelles:
