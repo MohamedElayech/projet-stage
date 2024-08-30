@@ -20,6 +20,7 @@ const handleImgQualityChange = (event) => {
         <h2>Picture Quality:</h2>
         <form className="lama">
           <div className="Star">
+            <input type="checkbox"></input>
             Degré d'utilisation des photos réelles:
             <select name="realPhotoUsage" value={imgQuality.realPhotoUsage} onChange={handleImgQualityChange}>
               <option value="">Select</option>
@@ -32,17 +33,15 @@ const handleImgQualityChange = (event) => {
           </div>
           <br />
           <div className="Star">
+          <input type="checkbox"></input>
             Clarté de la photo:
-            <select name="photoClarity" value={imgQuality.photoClarity} onChange={handleImgQualityChange}>
-              <option value="">Select</option>
-              <option value="bruité">Bruité</option>
-              <option value="floue">Floue</option>
-            </select>
+            <div></div>
             <label className="label">Poids:</label>
             <input type="number" className="weight"></input>
           </div>
           <br />
           <div className="Star">
+          <input type="checkbox"></input>
             Choix stratégique des photos:
             <select name="strategicPhotoChoice" value={imgQuality.strategicPhotoChoice} onChange={handleImgQualityChange}>
               <option value="">Select</option>

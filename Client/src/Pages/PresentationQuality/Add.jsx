@@ -35,6 +35,7 @@ export default function Add() {
     < >
       {inputFields.map((inputField, index) => (
         <div key={inputField.id} className="Star" >
+          <input type="checkbox"></input>
           <input
             type="text"
             value={inputField.label}

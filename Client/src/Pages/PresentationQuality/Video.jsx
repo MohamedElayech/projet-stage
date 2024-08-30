@@ -14,10 +14,12 @@ const handleVidQualityChange = (event) => {
     setVidQuality((prevVidQuality) => ({ ...prevVidQuality, [name]: value }));
   };
   return(
-    <div className="picto">
+    <div className="picto">            
+    
         <h2>Video Quality:</h2>
         <form>
           <label className="Star">
+          <input type="checkbox"></input>
             Présence de vidéo:
             <select name="prenseVid" value={vidQuality.presenceVid} onChange={handleVidQualityChange}>
               <option value="">Select</option>
@@ -29,13 +31,9 @@ const handleVidQualityChange = (event) => {
           </label>
           <br />
           <label className="Star">
+          <input type="checkbox"></input>
             Qualité de miniature:
-            <select name="miniature" value={vidQuality.miniature} onChange={handleVidQualityChange}>
-              <option value="">Select</option>
-              <option value="faible">Faible</option>
-              <option value="moyen">Moyen</option>
-              <option value="fort">Fort</option>
-            </select>
+            <div></div>
             <label>Poids:</label>
             <input type="number" className="weight"></input>
           </label>
