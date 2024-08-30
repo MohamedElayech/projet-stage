@@ -1,14 +1,13 @@
 import Video from "./Video";
 import Text from "./text"; 
-
+import Picture from "./Picture";
 import Checklist from "./checkList";
 export default function presentationQuality(){
 
     return(
         <div>
-            <Checklist />
-            
-           
+            <Text />
+            <Picture />
             <Video />
         </div>
         
