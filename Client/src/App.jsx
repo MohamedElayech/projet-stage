@@ -4,13 +4,15 @@ import viteLogo from '/vite.svg'
 import './App.css'
 import PresentaionQuality from './Pages/PresentationQuality/PresentationQuality'
 import Home from './Pages/Home'
+import PresentaionQualityResult from './Pages/PresentationQuality/PresentationQualityResult'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
   // <Home></Home>
-    <PresentaionQuality></PresentaionQuality>
+    // <PresentaionQuality></PresentaionQuality>
+    <PresentaionQualityResult></PresentaionQualityResult>
   )
 }
 

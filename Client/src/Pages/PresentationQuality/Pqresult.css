@@ -1,0 +1,43 @@
+.sousCriters{
+    display: flex;
+    justify-content: space-around;
+    width: 50%;
+    align-items: center;
+}
+.subcritiria{
+    text-align: center;
+    padding: 2vh 3vw;
+    line-height: 30px;
+    background-color: #00acee;
+    color: white;
+    text-decoration: solid 1px black;
+    margin: 5px;
+    border-radius: 10px;
+    /* text-shadow: 1px 1px 0 black,
+               -1px 1px 0 black,
+               1px -1px 0 black,
+               -1px -1px 0 black; */
+    font-weight: 500;
+}
+.generalscore{
+    width: 43%;
+    height: 10vh;
+    background-color: #00acee;
+    padding:15px 10px;
+    margin: 2vh 3vw;
+    border-radius: 15px;
+    color: white;
+    text-align: center;
+    font-weight: 700;
+    
+}
+#globalScore{
+    font-size: 30px;
+    text-shadow: 1px 1px 0 black,
+               -1px 1px 0 black,
+               1px -1px 0 black,
+               -1px -1px 0 black;
+}
+.resultatQP{
+    padding: 2vh 3vw;
+}
