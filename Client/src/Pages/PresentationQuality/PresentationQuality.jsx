@@ -1,8 +1,8 @@
 import Video from "./Video";
 import Text from "./text"; 
 import Picture from "./Picture";
-import Checklist from "./checkList";
-export default function presentationQuality(){
+
+export default function PresentationQuality(){
 
     return(
         <div>

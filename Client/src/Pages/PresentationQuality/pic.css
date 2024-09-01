@@ -3,10 +3,11 @@
     border-radius: 15px;
     padding: 5% 10%;
     box-shadow: 8px 8px 24px #00abee42 ;
-    margin: 5% 10%;
-
+    margin: 100px auto;
+    width:800px;
 
 }
+
 .weight{
     width: 50px;
     height:20px;
@@ -16,7 +17,7 @@
 .Star{
     margin-top: 20px;
     display: grid;
-    grid-template-columns: 1fr 3fr 2fr 2fr 2fr ;
+    grid-template-columns: 1fr 4fr 2fr 2fr 2fr ;
     grid-gap: 10px; 
 }
 select{

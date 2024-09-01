@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
-import InputPoids from './InputPoids';
-
+import './pic.css';
 export default function Add() {
   const [inputFields, setInputFields] = useState([
     { id: 1, label: 'New Criterea 1', value: '', intensity: '',weight:'' },

@@ -20,7 +20,7 @@ const handleImgQualityChange = (event) => {
         <h2>Picture Quality:</h2>
         <form className="lama">
           <div className="Star">
-            <input type="checkbox"></input>
+          <input type="checkbox" className="reee"></input>
             Degré d'utilisation des photos réelles:
             <select name="realPhotoUsage" value={imgQuality.realPhotoUsage} onChange={handleImgQualityChange}>
               <option value="">Select</option>
