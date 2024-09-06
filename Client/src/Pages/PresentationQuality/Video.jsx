@@ -13,6 +13,7 @@ const handleVidQualityChange = (event) => {
     const { name, value } = event.target;
     setVidQuality((prevVidQuality) => ({ ...prevVidQuality, [name]: value }));
   };
+
   return(
     <div className="picto">            
     
@@ -21,7 +22,7 @@ const handleVidQualityChange = (event) => {
           <label className="Star">
           <input type="checkbox"></input>
             Présence de vidéo:
-            <select name="prenseVid" value={vidQuality.presenceVid} onChange={handleVidQualityChange}>
+            <select name="presenceVid" value={vidQuality.presenceVid} onChange={handleVidQualityChange}>
               <option value="">Select</option>
               <option value="Oui">Oui</option>
               <option value="Non">Non</option>

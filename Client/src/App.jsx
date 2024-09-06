@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Completeness from "./Pages/Completeness/Completeness";
+//import Completeness from "./Pages/Completeness/Completeness";
 import "./App.css";
 import PresentationQuality from "./Pages/PresentationQuality/PresentationQuality";
 
@@ -425,9 +425,9 @@ function App() {
         <FormulaireTweet onFormSubmit={handleFormSubmit} />
       )}
       {view === "menu" && <Menu onCriterionClick={handleCriterionClick} />}
-      {view === "completeness" && <Completeness formData={formData} />}
+      
       {view === "presentation" && <PresentationQuality  />}
-     
+    
     </div>
   );
 }
