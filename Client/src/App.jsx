@@ -350,6 +350,13 @@ function FormulaireTweet({ onFormSubmit }) {
           onChange={handleChange}
         />
       </div>
+      <div>
+        <label >Critères selectionnés:</label>
+        <span><input type="checkbox" value="Presentation Quality" /><label htmlFor="">Presentation Quality</label></span>
+        <span><input type="checkbox" value="Trustworthiness" /><label htmlFor="">Trustworthiness</label></span>
+        <span><input type="checkbox" value="Usefullness" /><label htmlFor="">Usefullness</label></span>
+        <span><input type="checkbox" value="Completeness" /><label htmlFor="">Completeness</label></span>
+      </div>
 
       {errors.general && <div className="error">{errors.general}</div>}
       <button type="submit">Soumettre</button>
