@@ -4,7 +4,7 @@ import "./App.css";
 import PresentationQuality from "./Pages/PresentationQuality/PresentationQuality";
 
 // Le formulaire de tweet
-function FormulaireTweet({ onFormSubmit }) {
+function FormulaireTweet( { onFormSubmit, selectedCriteria }) {
   const [formData, setFormData] = useState({
     texte: "",
     hashtags: [],
@@ -28,14 +28,27 @@ function FormulaireTweet({ onFormSubmit }) {
 
   const [errors, setErrors] = useState({});
   const [inputValue, setInputValue] = useState(""); // State for current input value
-
+  const [hashtagInputValue, setHashtagInputValue] = useState('');
+  const [mentionInputValue, setMentionInputValue] = useState('');
+  const [tagInputValue, setTagInputValue] = useState('');
   const handleChange = (e) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
     });
   };
-
+  const handleHashtagInputChange = (e) => {
+    setHashtagInputValue(e.target.value);
+  };
+  
+  const handleMentionInputChange = (e) => {
+    setMentionInputValue(e.target.value);
+  };
+  
+  const handleTagInputChange = (e) => {
+    setTagInputValue(e.target.value);
+  };
+  
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -94,9 +107,14 @@ function FormulaireTweet({ onFormSubmit }) {
         "Le nombre de commentaires doit être un nombre entier strictement positif.";
     }
     // Continue with other validations...
+  const [selectedCriteria, setSelectedCriteria] = useState([]);
 
-    setErrors(newErrors);
-    return Object.keys(newErrors).length === 0;
+  const handleCheckboxChange = (e) => {
+    if (e.target.checked) {
+      setSelectedCriteria([...selectedCriteria, e.target.value]);
+    } else {
+      setSelectedCriteria(selectedCriteria.filter((criterion) => criterion !== e.target.value));
+    }
   };
 
   const handleSubmit = (e) => {
@@ -108,8 +126,13 @@ function FormulaireTweet({ onFormSubmit }) {
           value && value.length > 0 ? value : null,
         ])
       );
-      onFormSubmit(processedData);
+      onFormSubmit(processedData, selectedCriteria);
     }
+  };
+  
+  const FormulaireTweet = ({ onFormSubmit, selectedCriteria })
+
+
   };
 
   return (
@@ -141,8 +164,8 @@ function FormulaireTweet({ onFormSubmit }) {
         <input
           type="text"
           name="hashtags"
-          value={inputValue}
-          onChange={handleInputChange}
+          value={hashtagInputValue}
+          onChange={handleHashtagInputChange}
           placeholder="Ajouter un hashtag"
         />
         <button
@@ -172,8 +195,8 @@ function FormulaireTweet({ onFormSubmit }) {
         <input
           type="text"
           name="mentions"
-          value={inputValue}
-          onChange={handleInputChange}
+          value={mentionInputValue}
+          onChange={handleMentionInputChange}
           placeholder="Ajouter une mention"
         />
         <button
@@ -203,8 +226,8 @@ function FormulaireTweet({ onFormSubmit }) {
         <input
           type="text"
           name="tags"
-          value={inputValue}
-          onChange={handleInputChange}
+          value={tagInputValue}
+          onChange={handleTagInputChange}
           placeholder="Ajouter un tag"
         />
         <button
@@ -351,11 +374,75 @@ function FormulaireTweet({ onFormSubmit }) {
         />
       </div>
       <div>
-        <label >Critères selectionnés:</label>
-        <span><input type="checkbox" value="Presentation Quality" /><label htmlFor="">Presentation Quality</label></span>
-        <span><input type="checkbox" value="Trustworthiness" /><label htmlFor="">Trustworthiness</label></span>
-        <span><input type="checkbox" value="Usefullness" /><label htmlFor="">Usefullness</label></span>
-        <span><input type="checkbox" value="Completeness" /><label htmlFor="">Completeness</label></span>
+        <label>Critères selectionnés:</label>
+        <span>
+          <input
+            type="checkbox"
+            value="Presentation Quality"
+            checked={selectedCriteria.includes("Presentation Quality")}
+            onChange={(e) => {
+              const newCriteria = [...selectedCriteria];
+              if (e.target.checked) {
+                newCriteria.push(e.target.value);
+              } else {
+                newCriteria.splice(newCriteria.indexOf(e.target.value), 1);
+              }
+              onFormSubmit(null, newCriteria);
+            }}
+          />
+          <label>Presentation Quality</label>
+        </span>
+        <span>
+          <input
+            type="checkbox"
+            value="Trustworthiness"
+            checked={selectedCriteria.includes("Trustworthiness")}
+            onChange={(e) => {
+              const newCriteria = [...selectedCriteria];
+              if (e.target.checked) {
+                newCriteria.push(e.target.value);
+              } else {
+                newCriteria.splice(newCriteria.indexOf(e.target.value), 1);
+              }
+              onFormSubmit(null, newCriteria);
+            }}
+          />
+          <label>Trustworthiness</label>
+        </span>
+        <span>
+          <input
+            type="checkbox"
+            value="Usefullness"
+            checked={selectedCriteria.includes("Usefullness")}
+            onChange={(e) => {
+              const newCriteria = [...selectedCriteria];
+              if (e.target.checked) {
+                newCriteria.push(e.target.value);
+              } else {
+                newCriteria.splice(newCriteria.indexOf(e.target.value), 1);
+              }
+              onFormSubmit(null, newCriteria);
+            }}
+          />
+          <label>Usefullness</label>
+        </span>
+        <span>
+          <input
+            type="checkbox"
+            value="Completeness"
+            checked={selectedCriteria.includes("Completeness")}
+            onChange={(e) => {
+              const newCriteria = [...selectedCriteria];
+              if (e.target.checked) {
+                newCriteria.push(e.target.value);
+              } else {
+                newCriteria.splice(newCriteria.indexOf(e.target.value), 1);
+              }
+              onFormSubmit(null, newCriteria);
+            }}
+          />
+          <label>Completeness</label>
+        </span>
       </div>
 
       {errors.general && <div className="error">{errors.general}</div>}
@@ -365,78 +452,91 @@ function FormulaireTweet({ onFormSubmit }) {
 }
 
 // Le menu après soumission
-function Menu({ onCriterionClick }) {
+function Menu({ onCriterionClick, selectedCriteria }) {
   return (
     <div className="menu">
       <h1>Menu des Critères</h1>
       <div className="menu-buttons">
-        <button
-          className="menu-button"
-          style={{ backgroundColor: "#f94144" }}
-          onClick={() => onCriterionClick("Completeness")}
-        >
-          Completeness
-        </button>
-        <button
-          className="menu-button"
-          style={{ backgroundColor: "#f3722c" }}
-          onClick={() => onCriterionClick("PresentationQuality")}
-        >
-          Presentation Quality
-        </button>
-        <button
-          className="menu-button"
-          style={{ backgroundColor: "#f8961e" }}
-          onClick={() => onCriterionClick("trust")}
-        >
-          Trustworthiness
-        </button>
-        <button
-          className="menu-button"
-          style={{ backgroundColor: "#f9844a" }}
-          onClick={() => onCriterionClick("usefulness")}
-        >
-          Usefulness
-        </button>
+        {selectedCriteria.includes("Completeness") && (
+          <button
+            className="menu-button"
+            style={{ backgroundColor: "#f94144" }}
+            onClick={() => onCriterionClick("Completeness")}
+          >
+            Completeness
+          </button>
+        )}
+        {selectedCriteria.includes("PresentationQuality") && (
+          <button
+            className="menu-button"
+            style={{ backgroundColor: "#f3722c" }}
+            onClick={() => onCriterionClick("PresentationQuality")}
+          >
+            Presentation Quality
+          </button>
+        )}
+        {selectedCriteria.includes("Trustworthiness") && (
+          <button
+            className="menu-button"
+            style={{ backgroundColor: "#f8961e" }}
+            onClick={() => onCriterionClick("Trustworthiness")}
+          >
+            Trustworthiness
+          </button>
+        )}
+        {selectedCriteria.includes("Usefulness") && (
+          <button
+            className="menu-button"
+            style={{ backgroundColor: "#f9844a" }}
+            onClick={() => onCriterionClick("Usefulness")}
+          >
+            Usefulness
+          </button>
+        )}
       </div>
     </div>
   );
-}
-
+};
 function App() {
   const [view, setView] = useState("form");
+  const [selectedCriteria, setSelectedCriteria] = useState([]);
 
   const handleCriterionClick = (criterion) => {
     if (criterion === "Completeness") {
       setView("completeness");
     }
- 
-    if (criterion === "PresentationQuality"){
-      setView("presentation")
+    if (criterion === "PresentationQuality") {
+      setView("presentation");
     }
-    if (criterion === "usefulness"){
-      setView("usefulnes")
+    if (criterion === "Usefulness") {
+      setView("usefulness");
     }
   };
 
   const [formData, setFormData] = useState(null);
 
-  const handleFormSubmit = (processedData) => {
-    setFormData(processedData); // Enregistrer les données traitées
+  const handleFormSubmit = (processedData, selectedCriteria) => {
+    setFormData(processedData);
+    setSelectedCriteria(selectedCriteria);
     setView("menu");
   };
 
   return (
     <div className="app-container">
       {view === "form" && !formData && (
-        <FormulaireTweet onFormSubmit={handleFormSubmit} />
+        <FormulaireTweet onFormSubmit={handleFormSubmit} selectedCriteria={selectedCriteria}
+        setSelectedCriteria={setSelectedCriteria}/>
       )}
-      {view === "menu" && <Menu onCriterionClick={handleCriterionClick} />}
-      
-      {view === "presentation" && <PresentationQuality  />}
-    
+      {view === "menu" && (
+        <Menu
+          onCriterionClick={handleCriterionClick}
+          selectedCriteria={selectedCriteria}
+        />
+      )}
+      {view === "presentation" && <PresentationQuality />}
+      {/* ... */}
     </div>
   );
-}
+};
 
 export default App;
