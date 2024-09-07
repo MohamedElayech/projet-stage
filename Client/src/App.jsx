@@ -10,9 +10,9 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-  // <Home></Home>
+  <Home></Home>
     // <PresentaionQuality></PresentaionQuality>
-    <PresentaionQualityResult></PresentaionQualityResult>
+    // <PresentaionQualityResult></PresentaionQualityResult>
   )
 }
 
