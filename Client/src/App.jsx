@@ -374,75 +374,11 @@ function FormulaireTweet( { onFormSubmit, selectedCriteria }) {
         />
       </div>
       <div>
-        <label>Critères selectionnés:</label>
-        <span>
-          <input
-            type="checkbox"
-            value="Presentation Quality"
-            checked={selectedCriteria.includes("Presentation Quality")}
-            onChange={(e) => {
-              const newCriteria = [...selectedCriteria];
-              if (e.target.checked) {
-                newCriteria.push(e.target.value);
-              } else {
-                newCriteria.splice(newCriteria.indexOf(e.target.value), 1);
-              }
-              onFormSubmit(null, newCriteria);
-            }}
-          />
-          <label>Presentation Quality</label>
-        </span>
-        <span>
-          <input
-            type="checkbox"
-            value="Trustworthiness"
-            checked={selectedCriteria.includes("Trustworthiness")}
-            onChange={(e) => {
-              const newCriteria = [...selectedCriteria];
-              if (e.target.checked) {
-                newCriteria.push(e.target.value);
-              } else {
-                newCriteria.splice(newCriteria.indexOf(e.target.value), 1);
-              }
-              onFormSubmit(null, newCriteria);
-            }}
-          />
-          <label>Trustworthiness</label>
-        </span>
-        <span>
-          <input
-            type="checkbox"
-            value="Usefullness"
-            checked={selectedCriteria.includes("Usefullness")}
-            onChange={(e) => {
-              const newCriteria = [...selectedCriteria];
-              if (e.target.checked) {
-                newCriteria.push(e.target.value);
-              } else {
-                newCriteria.splice(newCriteria.indexOf(e.target.value), 1);
-              }
-              onFormSubmit(null, newCriteria);
-            }}
-          />
-          <label>Usefullness</label>
-        </span>
-        <span>
-          <input
-            type="checkbox"
-            value="Completeness"
-            checked={selectedCriteria.includes("Completeness")}
-            onChange={(e) => {
-              const newCriteria = [...selectedCriteria];
-              if (e.target.checked) {
-                newCriteria.push(e.target.value);
-              } else {
-                newCriteria.splice(newCriteria.indexOf(e.target.value), 1);
-              }
-              onFormSubmit(null, newCriteria);
-            }}
-          />
-          <label>Completeness</label>
-        </span>
+        <label >Critères selectionnés:</label>
+        <span><input type="checkbox" value="Presentation Quality" /><label htmlFor="">Presentation Quality</label></span>
+        <span><input type="checkbox" value="Trustworthiness" /><label htmlFor="">Trustworthiness</label></span>
+        <span><input type="checkbox" value="Usefullness" /><label htmlFor="">Usefullness</label></span>
+        <span><input type="checkbox" value="Completeness" /><label htmlFor="">Completeness</label></span>
       </div>
 
       {errors.general && <div className="error">{errors.general}</div>}
