@@ -1,8 +1,29 @@
 import {FaUser} from 'react-icons/fa'
 import { FaCheckCircle } from 'react-icons/fa';
+import { useState,useEffect } from 'react';
 import './Home.css'
 
 export default function Home(){
+    const [text,setText]=useState("")
+    const [image, setImage]=useState("")
+    const [videomin, setVideomin]=useState("")
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const response = await fetch('http://localhost:8080/word_s', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ text}),
+        });
+        const data = await response.json();
+        // setResult(data.count);
+        // setWords(data.words)
+        console.log(data)
+      };
+      useEffect(() => {
+        console.log(text); // this will log the updated words state
+      }, [text]);
+    
     return(
         <div className="homePage">
             <div className="welcome">
@@ -32,14 +53,24 @@ export default function Home(){
                             
                         </div>
                         <div className="texte">
-                            <textarea name="" id="" placeholder='Saisir le texte de votre poste' className='texteinput' rows={14} cols={59}></textarea>
+                            <textarea name="" id="text" placeholder='Saisir le texte de votre poste' className='texteinput' rows={14} cols={59} onChange={(event)=> setText(event.target.value)}></textarea>
                         </div>
                         <div className="image">
                             <label htmlFor="" className='graylabel'>
                                 Ajouter une image : 
-                                <input type="file" name="" id="" />
+                                <input type="file" name="" id="" onChange={(event)=>setImage(event.target.value)} />
                             </label>
                             
+                        </div>
+                        <div className="image">
+                            <label htmlFor="" className='graylabel'>
+                                Faire saisir la miniature du video: 
+                                <input type="file" name="" id="" onChange={(event)=>setVideomin(event.target.value)} />
+                            </label>
+                            
+                        </div>
+                        <div className="submit">
+                            <button type='submit' onClick={handleSubmit}>Soumettre</button>
                         </div>
                     </div>
                 </div>

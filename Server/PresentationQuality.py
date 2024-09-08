@@ -1,5 +1,15 @@
 from flask import Flask, jsonify, request
 from flask_cors import CORS
+import re
+from spellchecker import SpellChecker
+from PyDictionary import PyDictionary
+import requests
+import nltk
+from nltk.corpus import wordnet
+nltk.download('omw-1.4')
+nltk.download('wordnet')
+from nltk.corpus import wordnet as wn
+
 
 app = Flask(__name__)
 cors=CORS(app, origins='*')
@@ -33,8 +43,8 @@ def pourcentage_mots_phrase(texte):
     else:
       return "FORT"
     
-import re
-def pourcentage_parentheses(phrase):
+
+def pourcentage_parentheses_phrase(phrase):
     parentheses = ['(', ')']
     mots=re.split(r'[\. ]', phrase)
     # print(mots)
@@ -51,16 +61,25 @@ def pourcentage_parentheses(phrase):
               l+=1
 
     pourcentage = (nbr_parentheses / l)
+    return pourcentage
+
+def pourcentage_parentheses(text):
+    phrases=text.split('.')
+    p=0
+    for phrase in phrases:
+       p+=pourcentage_parentheses_phrase(phrase)
+
+    p/=len(phrases)
     # print(pourcentage)
-    if(pourcentage>0.3):
+    if(p>0.3):
       return "FAIBLE"
-    elif(pourcentage>0.1):
+    elif(p>0.1):
       return "MOYEN"
     else:
       return "FORT"
-    
+ 
 
-import re
+
 def est_abreviation(word):
     if(word.isupper()):
         return 1
@@ -81,7 +100,7 @@ def pourcentatge_abreviation(text):
     else:
       return "FORT"
     
-from spellchecker import SpellChecker
+
 
 def french_word_exists(word):
     spell = SpellChecker(language='fr')
@@ -91,7 +110,7 @@ def french_word_exists(word):
         return False
  
 
-from PyDictionary import PyDictionary
+
 
 def word_exists(word):
     dictionary=PyDictionary()
@@ -102,7 +121,7 @@ def word_exists(word):
         return False
     
 
-import requests
+
 
 # Load a list of common French and English words
 french_words = requests.get("https://raw.githubusercontent.com/dwyl/english-words/master/french.txt").text.splitlines()
@@ -127,7 +146,7 @@ def detect_language(word):
     else:
         return "Unknown"
     
-import re
+
 def pourcentage_fautes_orthographe(text):
 
     mots=re.split(r'[^\w]', text)
@@ -135,8 +154,8 @@ def pourcentage_fautes_orthographe(text):
     fautes=[]
     for i in mots:
         langue=detect_language(i)
-        print(i)
-        print(langue)
+        # print(i)
+        # print(langue)
         if langue=="French":
             if french_word_exists(i)==False:
                 fautes.append(i)
@@ -178,7 +197,7 @@ def pourcentage_cross_reference(text):
     else:
       return "FORT"
     
-from PyDictionary import PyDictionary
+
 
 def get_word_meaning(word):
     dictionary=PyDictionary()
@@ -194,7 +213,7 @@ def get_word_meaning(word):
         print(f"Sorry, couldn't find the meaning of {word}.")
 
 
-from PyDictionary import PyDictionary
+
 
 def get_parts_of_speech(word):
     dictionary=PyDictionary()
@@ -205,10 +224,7 @@ def get_parts_of_speech(word):
         return []
 
 
-import nltk
-nltk.download('omw-1.4')
-nltk.download('wordnet')
-from nltk.corpus import wordnet as wn
+
 
 def get_word_types(word):
     synsets = wn.synsets(word, lang='fra')
@@ -219,13 +235,20 @@ def get_word_types(word):
 
 # Example usage:
 
-def pourcentage_difficult_grammaticale(phrase):
+def pourcentage_difficult_grammaticale_phrase(phrase):
     mots=phrase.split()
     n=0
     for i in mots :
       n+=len(get_word_types(i))
       n+=len(get_parts_of_speech(i))
     p=n/1000
+    return p
+def pourcentage_difficult_grammaticale(text):
+    phrases=text.split('.')
+    p=0
+    for phrase in phrases:
+       p+=pourcentage_difficult_grammaticale_phrase(phrase)
+    p/=len(phrases)   
     if p>0.5:
       return "FAIBLE"
     elif p>0.2:
@@ -256,6 +279,15 @@ def nbr_signification_mots_phrase(phrase):
       n+=nbr_signification_mot(i)
 
     p =  n/1000
+    return p
+    
+    
+def pourcentage_polysemie(text):
+    phrases=text.split('.')
+    p=0
+    for phrase in phrases:
+        p+=nbr_signification_mots_phrase(phrase)
+    p/=len(phrases)
     if p>0.3:
           return "FAIBLE"
     elif p>0.1:
@@ -263,8 +295,7 @@ def nbr_signification_mots_phrase(phrase):
     else:
           return "FORT"
     
-import nltk
-from nltk.corpus import wordnet
+
 
 def get_synonyms(word):
     """
@@ -304,17 +335,38 @@ def pourcentage_synonymes(text):
 def hello():
     return "hello"
 
+
+text="They chose #Amiens. And they will be well there! 🧑‍🎓 You crossed paths with them, 'colorful' today, you will cross paths with them every day tomorrow. Welcome and happy new school year to the more than 30,000 Amiens students! We are so happy to welcome you! 🫶 #JAE2023"
+image="https://pbs.twimg.com/media/F6AJ3HmWEAAzt7i?format=jpg&name=large"
+
 @app.route("/",methods=['GET'])
-def users():
-    user1=hello()
+def user():
+    
+    pourcentagemotsuniques=pourcentage_mots_uniques(text)
+    pourcentagemotsphrase=pourcentage_mots_phrase(text)
+    pourcentageparentheses=pourcentage_parentheses(text)
+    pourcentatgeabreviation=pourcentatge_abreviation(text)
+    pourcentagefautesorthographe=pourcentage_fautes_orthographe(text)
+    pourcentagecrossreference=pourcentage_cross_reference(text)
+    pourcentagedifficultgrammaticale=pourcentage_difficult_grammaticale(text)
+    pourcentagesynonymes=pourcentage_synonymes(text)
+    pourcentagepolysemie=pourcentage_polysemie(text)
     return jsonify({
-        "users":[
-            user1,
-            'mohamed',
-            'ahmed',
-            'mahmoud'
-        ]
-    })
+       'pourcentagemotsuniques': pourcentagemotsuniques,
+       'pourcentagemotsphrase' : pourcentagemotsphrase,
+       'pourcentageparentheses' : pourcentageparentheses,
+       'pourcentatgeabreviation' : pourcentatgeabreviation,
+       'pourcentagefautesorthographe' : pourcentagefautesorthographe,
+       'pourcentagecrossreference' : pourcentagecrossreference,
+       'pourcentagedifficultgrammaticale' : pourcentagedifficultgrammaticale,
+       'pourcentagesynonymes' : pourcentagesynonymes,
+       'pourcentagepolysemie' : pourcentagepolysemie
+                    
+                    })
+      
 
 if __name__=="__main__":
     app.run(debug=True,port=8080)
+
+
+# Set-ExecutionPolicy RemoteSigned -Scope Process

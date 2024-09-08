@@ -1,6 +1,7 @@
 // import { handle } from "express/lib/application"n
 import InputPoid from "./InputPoid"
-import { useState } from "react"
+import { useState, useEffect } from "react"
+import axios from 'axios'
 import "./text.css"
 
 export default function Text(){
@@ -8,6 +9,30 @@ export default function Text(){
     // const handlePoidChange = (newPoid) => {
     //     setCount(newPoid); // Update count state based on the new poid
     //   };
+    
+    // const textData = {
+    //     "qualite_texte" : [0,'failbe'],
+    //     "presence_texte":[0,'faible'],
+    //     "emojis":[0,'faible'],
+    //     "sytaxique":[0,'faible'],
+    //     "semantique":[0,'faible'],
+    //     "mots_unique":[0,'faible'],
+    //     "mots_phrase":[0,'faible'],
+    //     "abreviations":[0,'faible'],
+    //     "parentheses":[0,'faible'],
+    //     "fautes_orthographe":[0,'faible'],
+    //     "crossreference":[0,'faible'],
+    //     "difficulte_grammaticale":[0,'faible'],
+    //     "polysemie":[0,'faible'],
+    //     "synonymes":[0,'faible'],
+    //     "hashtags":[0,'faible'],
+    //     "presnace_#":[0,'faible'],
+    //     "position_#":[0,'faible'],
+
+    // }
+
+
+
     const [qualite_texte,setQualiteTexte]=useState([{ value: '', poid: '' }])
     const [presence_texte,setPresenceTexte]=useState([{ value: '', poid: '' }])
     const [emojies,setEmojis]=useState([{ value: '', poid: '' }])
@@ -22,36 +47,17 @@ export default function Text(){
     const [diffuculteGrammaticale,setDiffuculteGrammaticale]=useState([{ value: '', poid: '' }])
     const [polysemie,setPolysemie]=useState([{ value: '', poid: '' }])
     const [synonymes,setSynonymes]=useState([{ value: '', poid: '' }])
-    const [heshtags,setHashtags]=useState([{ value: '', poid: '' }])
+    const [hashtags,setHashtags]=useState([{ value: '', poid: '' }])
     const [presenseHashtag,setPresenseHashtag]=useState([{ value: '', poid: '' }])
     const [positionHashtag,setPdositionHashtag]=useState([{ value: '', poid: '' }])
-    
+    const [textData,setTextData]=useState(null)    
 
-    const textData = {
-        "qualite_texte" : [0,'failbe'],
-        "presence_texte":[0,'faible'],
-        "emojis":[0,'faible'],
-        "sytaxique":[0,'faible'],
-        "semantique":[0,'faible'],
-        "mots_unique":[0,'faible'],
-        "mots_phrase":[0,'faible'],
-        "abreviations":[0,'faible'],
-        "parentheses":[0,'faible'],
-        "fautes_orthographe":[0,'faible'],
-        "crossreference":[0,'faible'],
-        "difficulte_grammaticale":[0,'faible'],
-        "polysemie":[0,'faible'],
-        "synonymes":[0,'faible'],
-        "hashtags":[0,'faible'],
-        "presnace_#":[0,'faible'],
-        "position_#":[0,'faible'],
-
-    }
 
 
     const handleQualitePoidChange = (event) => {
         const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
         setQualiteTexte([{ value: qualite_texte[0].value, poid: poidValue }]);
+        
       };
       
       const handlePresencePoidChange = (event) => {
@@ -77,6 +83,7 @@ export default function Text(){
       const handleMotUniquePoidChange = (event) => {
         const poidValue = event.target.parentNode.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
         setMotUnique([{ value: motUnique[0].value, poid: poidValue }]);
+        // setMotUnique([])
       };
       
       const handleMotsPhrasePoidChange = (event) => {
@@ -121,7 +128,7 @@ export default function Text(){
       
       const handleHeshtagsPoidChange = (event) => {
         const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
-        setHashtags([{ value: heshtags[0].value, poid: poidValue }]);
+        setHashtags([{ value: hashtags[0].value, poid: poidValue }]);
       };
       
       const handlePresenseHashtagPoidChange = (event) => {
@@ -133,27 +140,58 @@ export default function Text(){
         const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
         setPdositionHashtag([{ value: positionHashtag[0].value, poid: poidValue }]);
       };
+      useEffect(() => {
+        async function fetchData() {
+          try {
+            const response = await axios.get('http://localhost:8080/');
+            setTextData(response.data);
+          } catch (error) {
+            console.error(error);
+          }
+        }
+        fetchData();
+      }, []);
     
+      useEffect(() => {
+        if (textData) {
+          setQualiteTexte([{ value: textData.pourcentagemotsuniques, poid: qualite_texte[0].poid }]);
+          setMotsPhrase([{ value: textData.pourcentagemotsphrase, poid: motsPhrase[0].poid }]);
+          setMotUnique([{ value: textData.pourcentagemotsuniques, poid: motUnique[0].poid }]);
+          setMotsPhrase([{ value: textData.pourcentagemotsphrase, poid: motsPhrase[0].poid }]);
+          setAbreviations([{ value: textData.pourcentatgeabreviation, poid: abreviations[0].poid }]);
+          setParenthese([{ value: textData.pourcentageparentheses, poid: parentheses[0].poid }]);
+          setFautesOrthographe([{ value: textData.pourcentagefautesorthographe, poid: fautesOrthographe[0].poid }]);
+          setCrossreference([{ value: textData.pourcentagecrossreference, poid: crossreference[0].poid }]);
+          setDiffuculteGrammaticale([{ value: textData.pourcentagedifficultgrammaticale, poid: diffuculteGrammaticale[0].poid }]);
+          setPolysemie([{ value: textData.pourcentagepolysemie, poid: polysemie[0].poid }]);
+          setSynonymes([{ value: textData.pourcentagesynonymes, poid: synonymes[0].poid }]);
+          setHashtags([{ value: textData.pourcentagehashtags, poid: hashtags[0].poid }]);
+          setPresenseHashtag([{ value: textData.pourcentagepresensehashtag, poid: presenseHashtag[0].poid }]);
+          setPresenseHashtag([{ value: textData.pourcentagepositionhashtag, poid: positionHashtag[0].poid }]);
+        }
+      }, [textData]);
+    
+      const combinedData = {
+        qualite_texte: qualite_texte[0],
+        presence_texte: presence_texte[0],
+        emojies: emojies[0],
+        syntaxique: syntaxique[0],
+        semantique: semantique[0],
+        motUnique: motUnique[0],
+        motsPhrase: motsPhrase[0],
+        abreviations: abreviations[0],
+        parenthese: parentheses[0],
+        fautesOrthographe: fautesOrthographe[0],
+        crossreference: crossreference[0],
+        diffuculteGrammaticale: diffuculteGrammaticale[0],
+        polysemie: polysemie[0],
+        synonymes: synonymes[0],
+        hashtags: hashtags[0],
+        presenseHashtag: presenseHashtag[0],
+        positionHashtag: positionHashtag[0],
+      };
+      console.log(combinedData)
 
-      console.log({
-        qualite_texte: qualite_texte[0].poid,
-        presence_texte: presence_texte[0].poid,
-        emojies: emojies[0].poid,
-        syntaxique: syntaxique[0].poid,
-        semantique: semantique[0].poid,
-        motUnique: motUnique[0].poid,
-        motsPhrase: motsPhrase[0].poid,
-        abreviations: abreviations[0].poid,
-        parentheses: parentheses[0].poid,
-        fautesOrthographe: fautesOrthographe[0].poid,
-        crossreference: crossreference[0].poid,
-        diffuculteGrammaticale: diffuculteGrammaticale[0].poid,
-        polysemie: polysemie[0].poid,
-        synonymes: synonymes[0].poid,
-        heshtags: heshtags[0].poid,
-        presenseHashtag: presenseHashtag[0].poid,
-        positionHashtag: positionHashtag[0].poid
-      });
     return(
         
 
@@ -310,6 +348,13 @@ export default function Text(){
                 <div className="ajoutButtonContainer">
                     <button className="ajoutButtun">Ajouter</button>
                 </div>
+            </div>
+            <div className="soumettre sousCritereContainer">
+                <div className="textpoid">
+                    <label htmlFor="">Ajouter le poids du texte</label>
+                    <input type="number" placeholder="Poids du texte" className="inputPoid" onChange={handleQualitePoidChange}/>
+                </div>
+                <button type="submit" className="ajoutButtun">Soumettre</button>
             </div>
             
         </div>

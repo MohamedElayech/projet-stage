@@ -91,3 +91,8 @@
     margin-left: 20px;
     margin-bottom: 20px;
 }
+.soumettre{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
