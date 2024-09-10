@@ -1,12 +1,4 @@
-import pandas as pd
 
-
-
-
-#file_path = r"C:\Users\dziri\OneDrive\Bureau\projet d'été\flask_server\tweet_data.csv"
-#df = pd.read_csv(file_path)
-#row
-# = df.iloc[-1]
 
 #a:debute de la montée,b : Le sommet du triangle,c : fin de la montée.
 def fct_triang(x,a,b,c):
