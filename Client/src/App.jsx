@@ -22,6 +22,7 @@ function FormulaireTweet({ onFormSubmit }) {
     nombre_abonnements: "",
     photo_profil: "",
     photo_couverture: "",
+    criteres:[]
   });
 
 
@@ -110,7 +111,11 @@ function FormulaireTweet({ onFormSubmit }) {
       onFormSubmit(processedData);
     }
   };
-
+  const handleaddCrit = (e) => {
+   let tempfield = formData
+   tempfield['criteres'].push(e)
+   setFormData(tempfield)
+  };
   return (
     <form onSubmit={handleSubmit} className="formulaire">
       <div>
@@ -349,24 +354,26 @@ function FormulaireTweet({ onFormSubmit }) {
           onChange={handleChange}
         />
       </div>
-      <div className="selection-group">
-        <div className="checkbox-container">
-          <input type="checkbox" id="presentation-quality" name="selection" />
-          
-        </div>
+      <div className="selection-group" style={{display:'flex',flexDirection:"column",  alignItems:"flex-start"}}>
+        <span className="checkbox-container" > 
+          <input type="checkbox" id="presentation-quality" name="selection" onChange={()=>{handleaddCrit("Presentation Quality")}} />
+          <span className="crit">Presentation Quality</span>
+        </span>
         
-        <div className="checkbox-container">
-          <input type="checkbox" id="completeness" name="selection" className="checkbox" />
-        </div>
+        <span className="checkbox-container" >
+          <input type="checkbox" id="trustworthiness" name="selection" onChange={()=>{handleaddCrit("Trustworthinesss")}}  />
+          <span className="crit">Trustworthiness</span>
+        </span>
         
-        <div className="checkbox-container">
-          <input type="checkbox" id="usefulness" name="selection" />
-          
-        </div>
+        <span className="checkbox-container"> 
+          <input type="checkbox" id="usefulness" name="selection" onChange={()=>{handleaddCrit("Usefullness")}}/>
+          <span className="crit">Usefullness</span>
+        </span>
         
-        <div className="checkbox-container">
-          <input type="checkbox" id="trustworthiness" name="selection" />
-        </div>
+        <span className="checkbox-container">
+          <input type="checkbox" id="completeness" name="selection" onChange={()=>{handleaddCrit("Completeness")}}/>
+          <span className="crit">Completeness</span>
+        </span>
       </div>
    
 
@@ -377,50 +384,73 @@ function FormulaireTweet({ onFormSubmit }) {
 }
 
 // Le menu après soumission
-function Menu({ onCriterionClick }) {
-  return (
-    <div className="menu">
-      <h1>Menu des Critères</h1>
-      <div className="menu-buttons">
-        <button
-          className="menu-button"
-          style={{ backgroundColor: "#f94144" }}
-          onClick={() => onCriterionClick("Completeness")}
-        >
-          Completeness
-        </button>
-        <button
-          className="menu-button"
-          style={{ backgroundColor: "#f3722c" }}
-          onClick={() => onCriterionClick("Critère 2")}
-        >
-          Critère 2
-        </button>
-        <button
-          className="menu-button"
-          style={{ backgroundColor: "#f8961e" }}
-          onClick={() => onCriterionClick("Critère 3")}
-        >
-          Critère 3
-        </button>
-        <button
-          className="menu-button"
-          style={{ backgroundColor: "#f9844a" }}
-          onClick={() => onCriterionClick("Critère 4")}
-        >
-          Critère 4
-        </button>
-      </div>
+function Menu({ onCriterionClick, crits }) {
+  // return (
+  //   <div className="menu">
+  //     <h1>Menu des Critères</h1>
+  //     <div className="menu-buttons">
+  //       <button
+  //         className="menu-button"
+  //         style={{ backgroundColor: "#f94144" }}
+  //         onClick={() => onCriterionClick("Completeness")}
+  //       >
+  //         Completeness
+  //       </button>
+  //       <button
+  //         className="menu-button"
+  //         style={{ backgroundColor: "#f3722c" }}
+  //         onClick={() => onCriterionClick("Critère 2")}
+  //       >
+  //         Critère 2
+  //       </button>
+  //       <button
+  //         className="menu-button"
+  //         style={{ backgroundColor: "#f8961e" }}
+  //         onClick={() => onCriterionClick("Critère 3")}
+  //       >
+  //         Critère 3
+  //       </button>
+  //       <button
+  //         className="menu-button"
+  //         style={{ backgroundColor: "#f9844a" }}
+  //         onClick={() => onCriterionClick("Critère 4")}
+  //       >
+  //         Critère 4
+  //       </button>
+  //     </div>
+  //   </div>
+  // );
+  console.log(crits)
+  return(
+
+    <div className="menu-button"
+          style={{  width: '50vw', display: 'flex', justifyContent: 'space-between'}}>
+      {crits.map((el)=> ( <button key={el}
+            className="menu-button"
+            style={{ backgroundColor: "#f94144", width: '20vw' }}
+            onClick={() => onCriterionClick({el})}
+          >{el}</button>))}
     </div>
-  );
+  )
+
 }
+
 
 function App() {
   const [view, setView] = useState("form");
 
   const handleCriterionClick = (criterion) => {
+    if (criterion === "Presentation Quality") {
+      setView("Presentation Quality");
+    }
+    if (criterion === "Trustworthinesss") {
+      setView("Trustworthinesss");
+    }
+    if (criterion === "Usefullness") {
+      setView("Usefullness");
+    }
     if (criterion === "Completeness") {
-      setView("completeness");
+      setView("Completeness");
     }
   };
 
@@ -436,7 +466,7 @@ function App() {
       {view === "form" && !formData && (
         <FormulaireTweet onFormSubmit={handleFormSubmit} />
       )}
-      {view === "menu" && <Menu onCriterionClick={handleCriterionClick} />}
+      {view === "menu" && <Menu crits={formData.criteres} onCriterionClick={handleCriterionClick} />}
     
     </div>
   );

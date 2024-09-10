@@ -178,6 +178,11 @@ button:active {
   margin-right: 5px;
 }
 
-.checkbox {
-  margin-left: 0; /* This will remove any default left margin */
+.checkbox-container{
+  display: flex;
+  flex-direction: row;
+}
+.crit{
+  font-weight: bolder;
+  margin-left: 10px;
 }
