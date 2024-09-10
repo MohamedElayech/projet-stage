@@ -52,10 +52,12 @@ export default function Text(){
     const [positionHashtag,setPdositionHashtag]=useState([{ value: '', poid: '' }])
     const [textData,setTextData]=useState(null)    
 
-
+    const handleSubmit =(event) => {
+      console.log("wiii")
+    }
 
     const handleQualitePoidChange = (event) => {
-        const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
+        const poidValue =  event.target.value ;
         setQualiteTexte([{ value: qualite_texte[0].value, poid: poidValue }]);
         
       };
@@ -166,8 +168,9 @@ export default function Text(){
           setPolysemie([{ value: textData.pourcentagepolysemie, poid: polysemie[0].poid }]);
           setSynonymes([{ value: textData.pourcentagesynonymes, poid: synonymes[0].poid }]);
           setHashtags([{ value: textData.pourcentagehashtags, poid: hashtags[0].poid }]);
-          setPresenseHashtag([{ value: textData.pourcentagepresensehashtag, poid: presenseHashtag[0].poid }]);
-          setPresenseHashtag([{ value: textData.pourcentagepositionhashtag, poid: positionHashtag[0].poid }]);
+          setPresenseHashtag([{ value: textData.presencehashtags, poid: presenseHashtag[0].poid }]);
+          setPdositionHashtag([{ value: textData.positionhashtag, poid: positionHashtag[0].poid }]);
+          setEmojis([{ value: textData.emojis, poid: emojies[0].poid }]);
         }
       }, [textData]);
     
@@ -354,7 +357,7 @@ export default function Text(){
                     <label htmlFor="">Ajouter le poids du texte</label>
                     <input type="number" placeholder="Poids du texte" className="inputPoid" onChange={handleQualitePoidChange}/>
                 </div>
-                <button type="submit" className="ajoutButtun">Soumettre</button>
+                <button type="submit" className="ajoutButtun" onClick={handleSubmit}>Soumettre</button>
             </div>
             
         </div>

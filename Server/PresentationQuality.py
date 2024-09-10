@@ -331,7 +331,58 @@ def pourcentage_synonymes(text):
     else:
       return "FORT"
     
-    
+
+#Implementation de la fonction qui verifie si le texte contient des emojis ou non
+
+import re
+
+def contains_emoji(text):
+    """
+    Returns True if the text contains at least one emoji, False otherwise.
+    """
+    emoji_pattern = re.compile(
+        "["
+        "\U0001F600-\U0001F64F"  # emoticons
+        "\U0001F300-\U0001F5FF"  # symbols & pictographs
+        "\U0001F680-\U0001F6FF"  # transport & map symbols
+        "\U0001F1E0-\U0001F1FF"  # flags (iOS)
+        "\U00002500-\U00002587"  # chinese char
+        "\U00002589-\U0001F251"  # I need Unicode Character "█" (U+2588)
+        "]+",
+        flags=re.UNICODE
+    )
+    if bool(emoji_pattern.search(text))==True:
+       return "FORT"
+    else:
+       return "FAIBLE"
+
+
+
+def presence_hashtags(text):
+    if "#" in text:
+       return "FORT"
+    else : 
+       return "FAIBLE"
+
+
+def position_hashtag(text):
+    n=text.count("#")
+    a=0
+    words=words = re.findall(r"#\w+|\w+", text)
+    l=len(words)
+    for i in range(l-1,0,-1):
+        if "#" in words[i]:
+            a+=1
+        else:
+            break
+    if a==n:
+        return "FORT"
+    else:
+        return "FAIBLE"
+
+
+
+     
 def hello():
     return "hello"
 
@@ -351,6 +402,9 @@ def user():
     pourcentagedifficultgrammaticale=pourcentage_difficult_grammaticale(text)
     pourcentagesynonymes=pourcentage_synonymes(text)
     pourcentagepolysemie=pourcentage_polysemie(text)
+    presencehashtags=presence_hashtags(text)
+    positionhashtag=position_hashtag(text)
+    emojis=contains_emoji(text)
     return jsonify({
        'pourcentagemotsuniques': pourcentagemotsuniques,
        'pourcentagemotsphrase' : pourcentagemotsphrase,
@@ -360,7 +414,10 @@ def user():
        'pourcentagecrossreference' : pourcentagecrossreference,
        'pourcentagedifficultgrammaticale' : pourcentagedifficultgrammaticale,
        'pourcentagesynonymes' : pourcentagesynonymes,
-       'pourcentagepolysemie' : pourcentagepolysemie
+       'pourcentagepolysemie' : pourcentagepolysemie,
+       'emojis' : emojis,
+       'presencehashtags' : presencehashtags,
+       'positionhashtag' : positionhashtag
                     
                     })
       
