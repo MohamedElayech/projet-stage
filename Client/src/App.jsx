@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-
+import PresentationQuality from "./Pages/PresentationQuality/PresentationQuality.jsx";
 import "./App.css";
-
+import TweetEvaluationForm from "./Pages/Usefulness/Usefulness.jsx";
 // Le formulaire de tweet
 function FormulaireTweet({ onFormSubmit }) {
   const [formData, setFormData] = useState({
@@ -385,41 +385,8 @@ function FormulaireTweet({ onFormSubmit }) {
 
 // Le menu après soumission
 function Menu({ onCriterionClick, crits }) {
-  // return (
-  //   <div className="menu">
-  //     <h1>Menu des Critères</h1>
-  //     <div className="menu-buttons">
-  //       <button
-  //         className="menu-button"
-  //         style={{ backgroundColor: "#f94144" }}
-  //         onClick={() => onCriterionClick("Completeness")}
-  //       >
-  //         Completeness
-  //       </button>
-  //       <button
-  //         className="menu-button"
-  //         style={{ backgroundColor: "#f3722c" }}
-  //         onClick={() => onCriterionClick("Critère 2")}
-  //       >
-  //         Critère 2
-  //       </button>
-  //       <button
-  //         className="menu-button"
-  //         style={{ backgroundColor: "#f8961e" }}
-  //         onClick={() => onCriterionClick("Critère 3")}
-  //       >
-  //         Critère 3
-  //       </button>
-  //       <button
-  //         className="menu-button"
-  //         style={{ backgroundColor: "#f9844a" }}
-  //         onClick={() => onCriterionClick("Critère 4")}
-  //       >
-  //         Critère 4
-  //       </button>
-  //     </div>
-  //   </div>
-  // );
+  
+
   console.log(crits)
   return(
 
@@ -428,7 +395,7 @@ function Menu({ onCriterionClick, crits }) {
       {crits.map((el)=> ( <button key={el}
             className="menu-button"
             style={{ backgroundColor: "#f94144", width: '20vw' }}
-            onClick={() => onCriterionClick({el})}
+            onClick={() => onCriterionClick(el)}
           >{el}</button>))}
     </div>
   )
@@ -460,14 +427,16 @@ function App() {
     setFormData(processedData); // Enregistrer les données traitées
     setView("menu");
   };
-
   return (
     <div className="app-container">
       {view === "form" && !formData && (
         <FormulaireTweet onFormSubmit={handleFormSubmit} />
       )}
       {view === "menu" && <Menu crits={formData.criteres} onCriterionClick={handleCriterionClick} />}
-    
+      {view === "Presentation Quality" && <PresentationQuality />}
+      {view === "Trustworthiness" && <Trustworthiness />}
+      {view === "Usefulness" && <TweetEvaluationForm />}
+      {view === "Completeness" && <Completeness />}
     </div>
   );
 }

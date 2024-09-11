@@ -1,0 +1,152 @@
+
+.form_content input[type="checkbox"] {
+    margin-right: 10px;
+
+}
+.input_part textarea{
+width: 100%;
+ height: 150px; 
+ padding: 10px;
+  font-size: 16px;
+}
+.input_part,.new_critere {
+    align-items: center;
+
+    border: 1px solid #00acee;
+    
+    padding: 3% 10%;
+    box-shadow: 8px 8px 24px #00abee42;
+    margin: 3% 10%;
+}
+.new_critere{
+    text-align: center;
+
+}
+
+
+
+
+.input_part_content {
+    display: flex;
+    align-items: center;
+}
+
+.form_content input[type="number"],
+.form_content input[type="text"],
+.form_content select {
+    width: 50px;
+    border: 2px solid rgba(128, 128, 128, 0.484);
+    border-radius: 5px;
+    margin-top: 5px;
+    padding: 8px;
+}
+
+.input_part label,.table2 td,.table3 td{
+font-weight: bold;
+}
+
+
+.form_content div {
+    margin-bottom: 15px;
+}
+
+
+.critere_titre{
+    text-align: center;
+    justify-content: center;
+    display: flex;
+  align-items: center; 
+  gap: 20px; 
+
+}
+.table2, .table3,.table4 {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0px 0;
+  }
+ 
+  
+.table2 th, td , .table3 th, td {
+    border: 1px solid #ddd;
+    padding: 12px 15px;
+    text-align: center;
+    vertical-align: middle;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+  }
+
+  
+ .table2 th {
+   
+    font-weight: bold;
+  }
+  
+  input[type="number"], input[type="text"] {
+    width: 70px;
+    padding: 5px;
+    
+    text-align: center;
+  }
+  
+.table2 input[type="checkbox"] ,.table3 input[type="checkbox"]{
+    transform: scale(1.2);
+    margin-right: 10px;
+  }
+  
+ .table2 label,.table4 label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    margin-left: 8px;
+    font-weight: bold;
+  }
+  
+  input[type="checkbox"] + label {
+    margin-left: 5px;
+    
+  }
+  
+  td input[type="number"]::placeholder, 
+  td input[type="text"]::placeholder {
+    font-size: 12px;
+    color: #999;
+  }
+  
+  td:first-child {
+    text-align: left;
+  }
+  
+  td:nth-child(2) {
+    width: 150px;
+  }
+  
+  td:nth-child(3) {
+    width: 80px;
+  }
+ 
+  
+ 
+  
+  .table3 input[type="number"] {
+    width: 80px;
+  }
+  button{ background-color: #45c1e3;
+    color: white;
+    padding: 10px 20px;
+    margin-top: 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;}
+  
+
+  
+    .buttons{
+      text-align: center;
+      align-items: center;
+      margin-inline: 5px;
+    }
+  
+  
+   
