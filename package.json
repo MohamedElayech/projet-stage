@@ -4,6 +4,7 @@
     "chart": "^0.1.2",
     "react-chartjs-2": "^5.2.0",
     "react-gauge-chart": "^0.5.1",
-    "react-router-dom": "^6.26.1"
+    "react-router-dom": "^6.26.1",
+    "switch": "^0.0.0"
   }
 }

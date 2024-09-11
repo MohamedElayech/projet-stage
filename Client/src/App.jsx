@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import PresentationQuality from "./Pages/PresentationQuality/PresentationQuality.jsx";
 import "./App.css";
+import Trustworthiness from "./Pages/Trustworthiness/Trustworthiness.jsx";
 import TweetEvaluationForm from "./Pages/Usefulness/Usefulness_inputs.jsx";
 // Le formulaire de tweet
 function FormulaireTweet({ onFormSubmit }) {
@@ -14,6 +15,7 @@ function FormulaireTweet({ onFormSubmit }) {
     comments: "",
     shares: "",
     likes: "",
+    views: 0,
     impressions: "",
     nom_utilisateur: "",
     localisation: "",
