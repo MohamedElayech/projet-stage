@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import PresentationQuality from "./Pages/PresentationQuality/PresentationQuality.jsx";
 import "./App.css";
-import TweetEvaluationForm from "./Pages/Usefulness/Usefulness.jsx";
+import TweetEvaluationForm from "./Pages/Usefulness/Usefulness_inputs.jsx";
 // Le formulaire de tweet
 function FormulaireTweet({ onFormSubmit }) {
   const [formData, setFormData] = useState({
@@ -22,6 +22,8 @@ function FormulaireTweet({ onFormSubmit }) {
     nombre_abonnements: "",
     photo_profil: "",
     photo_couverture: "",
+    profession: "",
+    typeEmetteur:"",
     criteres:[]
   });
 
@@ -354,6 +356,45 @@ function FormulaireTweet({ onFormSubmit }) {
           onChange={handleChange}
         />
       </div>
+      <div>
+        <label htmlFor="">Professions et domaines</label>
+        <select 
+                                    name="profession"
+                                    value={formData.profession}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="Influenceurs et Célébrités">Influenceurs et Célébrités</option>
+                                    <option value="Influenceurs et Célébrités">Divertissement</option>
+                                    <option value="Journalistes">Journalisme</option>
+                                    <option value="Politiciens">Politique</option>
+                                    <option value="Activistes">Activistes</option>
+                                    <option value="Scientifiques et Experts">Science et Expertise</option>
+                                    <option value="Avocats et Juristes">Droit</option>
+                                    <option value="Académiciens et Professeurs">Professeurs</option>
+                                    <option value="Académiciens et Professeurs">Domaine Académique</option>
+                                    <option value="Professionnels de la Santé">La Santé</option>
+                                    <option value="Travailleurs Sociaux">Travail social</option>
+                                    <option value="Ingénieurs">Ingénierie</option>
+                                    <option value="étudiant">Etudiant</option>
+                                    <option value="Artistes et Créateurs">Art et Creation</option>
+                                    <option value="Commerçants et Entrepreneurs Indépendants">Commerce et Entrepreneuriat</option>
+                                    <option value="Consultants en Management">Finance et Management</option>
+                                    <option value="inconnue">Inconnu</option>
+                                </select>
+      </div>
+      <div>
+        <label htmlFor="">Type d'émetteur</label>
+      <select
+                                    name="typeEmetteur"
+                                    value={formData.typeEmetteur}
+                                    onChange={handleInputChange}
+                                >
+                                    <option value="individual">Individue</option>
+                                    <option value="informal group">Groupe informel</option>
+                                    <option value="organization">Organisation</option>
+                                    <option value="organizational unit">Unité d'organisation</option>
+                                </select>
+      </div>
       <div className="selection-group" style={{display:'flex',flexDirection:"column",  alignItems:"flex-start"}}>
         <span className="checkbox-container" > 
           <input type="checkbox" id="presentation-quality" name="selection" onChange={()=>{handleaddCrit("Presentation Quality")}} />
@@ -435,7 +476,7 @@ function App() {
       {view === "menu" && <Menu crits={formData.criteres} onCriterionClick={handleCriterionClick} />}
       {view === "Presentation Quality" && <PresentationQuality />}
       {view === "Trustworthiness" && <Trustworthiness />}
-      {view === "Usefulness" && <TweetEvaluationForm />}
+      {view === "Usefullness" && <TweetEvaluationForm />}
       {view === "Completeness" && <Completeness />}
     </div>
   );

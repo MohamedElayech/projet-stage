@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './ResultComponent.css' ;
 
 
 function ResultComponent({result}) {

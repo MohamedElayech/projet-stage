@@ -1,17 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
-import './usefulness_inputs.css'
 import ResultComponent from './ResultComponent';
+import './usefulness_inputs.css';
 
 
 function TweetEvaluationForm() {
+  console.log('useful,ness')
 
-  const [usefulnessScore, setUsefulnessScore] = useState({
-    engagement_score: 0,
-    profil_score: 0,
-    polarity_score: 0
-  });
+
 
   const [poids, setPoids] = useState({
     poidsDuProfil: 0,
@@ -177,12 +173,12 @@ const handleselectMethodChange = (e) => {
                 <td>          <input type="checkbox" name="abonnes" checked={criteresSelectionnes.abonnes} onChange={handleCheckboxChange} />
                   <label>Nombre d'abonnés</label></td>
                 <td><label>Seuil du nombre d'abonnés:</label></td>
-                <td>          <input type="number"  min="0" name="nbAbonnesSeuil" placeholder="Seuil" value={parametres.nbAbonnesSeuil || ''} onChange={handleInputChange} />
+                <td>          <input type="number" className="innpout"  min="0" name="nbAbonnesSeuil" placeholder="Seuil" value={parametres.nbAbonnesSeuil || ''} onChange={handleInputChange} />
                 </td>
                 <td>
                   <label>Poids du nombre d'abonnés</label>
                 </td>
-                <td> <input type="number" min="0" name="nbAbonnesPoids" placeholder="poids" value={poids.nbAbonnesPoids || ''} onChange={handleInputChange} /></td>
+                <td> <input type="number" className="innpout" min="0" name="nbAbonnesPoids" placeholder="poids" value={poids.nbAbonnesPoids || ''} onChange={handleInputChange} /></td>
 
               </tr>
               <tr>
@@ -191,24 +187,24 @@ const handleselectMethodChange = (e) => {
                   Type d'émetteur:
                   </td>
                 <td><label>poids du type d'emetteur</label></td>
-                <td><input type="number" min="0" name="typeEmetteurPoids" placeholder="poids" value={poids.typeEmetteurPoids || ''} onChange={handleInputChange} />
+                <td><input type="number" className="innpout" min="0" name="typeEmetteurPoids" placeholder="poids" value={poids.typeEmetteurPoids || ''} onChange={handleInputChange} />
                 </td>
                 <td><label>Le poids du critère: poids de profil</label></td>
-                <td><input type="number" min="0" name="poidsDuProfil" placeholder="poids du sous critere: le poids du profil d'émetteur" value={poids.poidsDuProfil || ''} onChange={handleInputChange} />
+                <td><input type="number" className="innpout" min="0" name="poidsDuProfil" placeholder="poids du sous critere: le poids du profil d'émetteur" value={poids.poidsDuProfil || ''} onChange={handleInputChange} />
                 </td>
               </tr>
               <tr>
                 <td>
-                  <input type="checkbox" name="professionSelectionne" checked={criteresSelectionnes.professionSelectionne} onChange={handleCheckboxChange} />
+                  <input type="checkbox"  name="professionSelectionne" checked={criteresSelectionnes.professionSelectionne} onChange={handleCheckboxChange} />
                   <label>Profession:</label>
                 </td>
                 <td><label>poids de Profession</label> </td>
-                <td><input type="number" min="0" name="professionPoids" placeholder="poids" value={poids.professionPoids || ''} onChange={handleInputChange} />
+                <td><input type="number" className="innpout" min="0" name="professionPoids" placeholder="poids" value={poids.professionPoids || ''} onChange={handleInputChange} />
                 </td>
               </tr></td>
             <td><label>Le poids du critère:</label>
 
-              <input type="number" min="0" placeholder="poids du sous critere: polarité du message  " name="tweetPolarityPoids" value={poids.tweetPolarityPoids || ''} onChange={handleInputChange} />
+              <input type="number" className="innpout" min="0" placeholder="poids du sous critere: polarité du message  " name="tweetPolarityPoids" value={poids.tweetPolarityPoids || ''} onChange={handleInputChange} />
 
             </td>
           </tbody>
@@ -218,13 +214,12 @@ const handleselectMethodChange = (e) => {
 
 
 
-      //engagement
       <div className='input_part'>
         <div className='critere_titre'>
           <input type="checkbox" name="tweetEngagement" checked={criteresSelectionnes.tweetEngagement} onChange={handleCheckboxChange} />
           <label>Engagement Du Tweet </label>
           <label>le poids du critère :</label>
-          <input type="number" min="0" name="tweetEngagement" placeholder="poids du sous critère : engagement di tweet" value={poids.tweetEngagement || ''} onChange={handleInputChange} />
+          <input type="number" className="innpout" min="0" name="tweetEngagement" placeholder="poids du sous critère : engagement di tweet" value={poids.tweetEngagement || ''} onChange={handleInputChange} />
 
         </div>
 
@@ -242,24 +237,24 @@ const handleselectMethodChange = (e) => {
             <tr>
               <td><input type="checkbox" name="likes" checked={criteresSelectionnes.likes} onChange={handleCheckboxChange} />
                 Nombre de Likes</td>
-              <td><input type="number" min="0" name="likesSeuil" placeholder="seuil" value={parametres.likesSeuil || ''} onChange={handleInputChange} /></td>
-              <td> <input type="number" min="0" name="likesPoids" placeholder="poids" value={poids.likesPoids || ''} onChange={handleInputChange} /></td>
+              <td><input type="number" className="innpout" min="0" name="likesSeuil" placeholder="seuil" value={parametres.likesSeuil || ''} onChange={handleInputChange} /></td>
+              <td> <input type="number" className="innpout" min="0" name="likesPoids" placeholder="poids" value={poids.likesPoids || ''} onChange={handleInputChange} /></td>
               <td><input type="checkbox" name="replies" checked={criteresSelectionnes.replies} onChange={handleCheckboxChange} />
                 Nombre de Replies</td>
-              <td><input type="number" min="0" name="repliesSeuil" placeholder="seuil" value={parametres.repliesSeuil || ''} onChange={handleInputChange} />
+              <td><input type="number" className="innpout" min="0" name="repliesSeuil" placeholder="seuil" value={parametres.repliesSeuil || ''} onChange={handleInputChange} />
               </td>
-              <td><input type="number" min="0" name="repliesPoids" placeholder="poids" value={poids.repliesPoids || ''} onChange={handleInputChange} />
+              <td><input type="number" className="innpout" min="0" name="repliesPoids" placeholder="poids" value={poids.repliesPoids || ''} onChange={handleInputChange} />
               </td>
             </tr>
             <tr>
               <td>
                   <input type="checkbox" name="retweets" checked={criteresSelectionnes.retweets} onChange={handleCheckboxChange} />
                   Nombre de Retweets</td>
-              <td><input type="number" min="0" name="retweetsSeuil" placeholder="seuil" value={parametres.retweetsSeuil || 500} onChange={handleInputChange} /></td>
-              <td><input type="number" min="0" name="retweetsPoids" placeholder="poids" value={poids.retweetsPoids || ''} onChange={handleInputChange} /></td>
+              <td><input type="number" className="innpout" min="0" name="retweetsSeuil" placeholder="seuil" value={parametres.retweetsSeuil || 500} onChange={handleInputChange} /></td>
+              <td><input type="number" className="innpout" min="0" name="retweetsPoids" placeholder="poids" value={poids.retweetsPoids || ''} onChange={handleInputChange} /></td>
               <td>Methode de calcul</td>
               <td>
-                <input type="checkbox" name="methode1" checked={criteresSelectionnes.methode1} onChange={handleselectMethodChange} />
+                <input type="checkbox"  name="methode1" checked={criteresSelectionnes.methode1} onChange={handleselectMethodChange} />
                 D'apres les facteurs
               </td>
               <td>
@@ -284,10 +279,10 @@ const handleselectMethodChange = (e) => {
               <div key={i} className='new_critere'>
                 <table className='table4'>
                   <td> <label>Nom du critère</label></td>
-                  <td><input type='text' onChange={(e) => handleNEWcriterechange(i, e)} name="critereName" value={criteresAjoutes.critereName}></input>
+                  <td><input type='text' className="innpout" onChange={(e) => handleNEWcriterechange(i, e)} name="critereName" value={criteresAjoutes.critereName}></input>
                   </td>
                   <td><label>Valeur du critère</label></td>
-                  <td> <input type='number' onChange={(e) => handleNEWcriterechange(i, e)} name="critereValue" value={criteresAjoutes.critereValue}></input>
+                  <td> <input type='number' className="innpout" onChange={(e) => handleNEWcriterechange(i, e)} name="critereValue" value={criteresAjoutes.critereValue}></input>
                   </td>
                   <td><label>Niveau du critère</label></td>
                   <td> <select
@@ -317,7 +312,6 @@ const handleselectMethodChange = (e) => {
 
       </div>
 
-      {result && <ResultComponent result={result} />}
 
     </form>
   );
