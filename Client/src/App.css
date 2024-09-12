@@ -8,6 +8,7 @@
   width: 1000px;
 }
 
+
 label {
   font-weight: bold;
 }
@@ -26,7 +27,6 @@ input {
   border-radius: 10px;
   margin-bottom: 10px;
   text-decoration: double;
-
 }
 
 .cocheBleue {
@@ -44,6 +44,7 @@ form {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 10px;
   margin-top: 30px;
+  padding: 20px;
 }
 
 #dtype-compte {
@@ -84,45 +85,52 @@ form {
   margin-top: 30px;
 }
 
-#dnombre-abonne {
-  margin-top: 5px;
+#dnombre-abonne,
+#dnombre-publications,
+#dfrequence,
+#dnombre-annee,
+#dajouter-critere,
+#calculer,
+.dNouveau {
+  margin-top: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  padding-bottom: 20px;
+  padding: 20px;
   border-radius: 5px;
 }
 
-#dnombre-publicatons {
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+#dnombre-abonne {
   padding-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
+#dNouveau {
+  padding-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+}
+
+#dpublication {
+  padding-bottom: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 5px;
 }
 
 #dfrequence {
+  padding-bottom: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  padding-bottom: 20px;
   border-radius: 5px;
-
 }
 
-#dnombre-annee {
+#dannee {
+  padding-bottom: 20px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-  padding-bottom: 20px;
   border-radius: 5px;
 }
 
-#dajouter-critere {
-  box-shadow: 0 0 10px rgba(59, 57, 57, 0.5);
-  padding-bottom: 20px;
-  border-radius: 5px;
-  margin: 5px 0px;
-  padding-top: 10px;
-}
 
 #calculer {
-  box-shadow: 0 0 10px rgba(87, 82, 82, 0.5);
-  padding-bottom: 20px;
-  border-radius: 5px;
-  margin: 5px 0px;
+  margin: 5px 0;
   padding-top: 10px;
 }
 
@@ -140,52 +148,63 @@ form {
   font-size: 1.3em;
   font-weight: bold;
   font-family: cursive;
-  font-weight: 600;
-
 }
 
-#seuil {
-  margin-left: 10px;
-  margin-right: 10px;
-  width: 100px;
-  height: 30;
-  border-radius: 7px;
-  text-align: center;
-
-}
-
+/*#seuil,
 #poids {
   margin-left: 10px;
   margin-right: 10px;
-  width: 50px;
-  height: 30;
+  height: 30px;
   border-radius: 7px;
   text-align: center;
-
 }
 
-#nombre-abonne {
-  width: 300px;
-  margin: 0px 10px;
-  border-radius: 5px;
+#seuil {
+  width: 100px;
 }
 
-#nombre-annee {
-  width: 300px;
-  margin: 0px 10px;
-  border-radius: 5px;
-}
+#poids {
+  width: 50px;
+}*/
 
-#nombre-publications {
-  width: 300px;
-  margin: 0px 10px;
+#nombre-abonne,
+#annee,
+#publication,
+#frequence,
+#nouveau {
+  width: 200px;
+  margin: 0 10px;
   border-radius: 5px;
 }
 
 #frequence {
-  width: 300px;
-  margin: 0px 10px;
-  border-radius: 5px;
+  margin-top: 10px;
+}
+
+#seuil-frequence-min,
+#seuil-frequence-max,
+#seuil-annee-min,
+#seuil-annee-max,
+#seuil-publication-min,
+#seuil-publication-max,
+#seuil-frequence-min,
+#seuil-frequence-max,
+#seuil-abonne-min,
+#seuil-abonne-max {
+  width: 100px;
+  margin: 0 10px;
+  border-radius: 7px;
+  text-align: center;
+}
+
+#poids-abonne,
+#poids-annee,
+#poids-publication,
+#poids-frequence {
+  width: 50px;
+  margin: 0 10px;
+  border-radius: 7px;
+  text-align: center;
 }
 
 .ajouter-critere {
@@ -197,6 +216,8 @@ form {
   background-color: blue;
   font-size: larger;
   cursor: pointer;
+  margin-top: 14px;
+  margin-left: 40px;
 }
 
 .calculer {
@@ -232,5 +253,47 @@ form {
 
 .switch {
   margin-left: 50px;
+}
 
+/* Styles pour le choix de la méthode d'aggrégation */
+#aggregation-method {
+  margin-top: 30px;
+  padding: 10px;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  font-family: cursive;
+  font-weight: 500;
+  font-size: larger;
+}
+
+#aggregation-method label {
+  display: block;
+  margin-bottom: 10px;
+  font-family: cursive;
+}
+
+#aggregation-method select {
+  width: 200px;
+  height: 35px;
+  border-radius: 7px;
+  font-family: cursive;
+  font-size: medium;
+  font-weight: lighter;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  cursor: pointer;
+}
+
+.agreg {
+  font-family: cursive;
+  font-size: larger;
+}
+
+#daggregation-method {
+  margin-top: 10px;
+  padding-top: 5;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding-bottom: 10px;
+  border-radius: 5px;
 }
