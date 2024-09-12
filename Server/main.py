@@ -1,50 +1,122 @@
+from flask import Flask, request, jsonify
 import numpy as np
 import skfuzzy as fuzz
 from skfuzzy import control as ctrl
+from flask_cors import CORS
 
-# Définir les variables floues
-abonnés = ctrl.Antecedent(np.arange(0, 10001, 1), 'abonnés')
-date_creation = ctrl.Antecedent(np.arange(0, 11, 1), 'date_creation')
-postes_publies = ctrl.Antecedent(np.arange(0, 2001, 1), 'postes_publies')
-frequence_publication = ctrl.Antecedent(np.arange(0, 101, 1), 'frequence_publication')
+app = Flask(__name__)
+CORS(app)
 
-fiabilite = ctrl.Consequent(np.arange(0, 11, 1), 'fiabilite')
+@app.route('/calculate_score_final', methods=['POST'])
+def calculate_score_final():
+    data = request.json
+    final_score=0
+    # Extraire les données envoyées
+    nombreAbonne = data.get('nombreAbonne', 0)
+    nombreAnnee = data.get('nombreAnnee', 0)
+    nombrePublication = data.get('nombrePublication', 0)
+    nombreFrequence = data.get('nombreFrequence', 0)
+    seuilAbonneMin = data.get('seuilAbonneMin', 0)
+    seuilAbonneMax = data.get('seuilAbonneMax', 100)
+    seuilAnneeMin = data.get('seuilAnneeMin', 0)
+    seuilAnneeMax = data.get('seuilAnneeMax', 100)
+    seuilPublicationMin = data.get('seuilPublicationMin', 0)
+    seuilPublicationMax = data.get('seuilPublicationMax', 100)
+    seuilFrequenceMin = data.get('seuilFrequenceMin', 0)
+    seuilFrequenceMax = data.get('seuilFrequenceMax', 100)
+    poidsAbonne = data.get('poidsAbonne', 0)
+    poidsAnnee = data.get('poidsAnnee', 0)
+    poidsPublication = data.get('poidsPublication', 0)
+    poidsFrequence = data.get('poidsFrequence', 0)
+    disableAbonne = data.get('disableAbonne', False)
+    disableAnnee = data.get('disableAnnee', False)
+    disablePublication = data.get('disablePublication', False)
+    disableFrequence = data.get('disableFrequence', False)
+    aggregationMethod = data.get('aggregationMethod', 'moyenne')
 
-# Définir les fonctions d'appartenance
-abonnés['faible'] = fuzz.trimf(abonnés.universe, [0, 0, 100])
-abonnés['moyen'] = fuzz.trimf(abonnés.universe, [50, 500, 1000])
-abonnés['élevé'] = fuzz.trimf(abonnés.universe, [500, 10000, 10000])
+    # Définition des variables floues avec les nouvelles valeurs
+    nombre = ctrl.Antecedent(np.arange(0, 1000000001, 1000), 'nombre')
+    date_creation = ctrl.Antecedent(np.arange(0, 21, 1), 'date_creation')
+    publication = ctrl.Antecedent(np.arange(0, 10001, 1), 'publication')
+    frequence = ctrl.Antecedent(np.arange(0, 101, 1), 'frequence')
+    score = ctrl.Consequent(np.arange(0, 101, 1), 'score')
+    
+    # Définition des fonctions d'appartenance
+    nombre['low'] = fuzz.trimf(nombre.universe, [0, 0, 50000])
+    nombre['medium'] = fuzz.trimf(nombre.universe, [0, 50000, 1000000000])
+    nombre['high'] = fuzz.trimf(nombre.universe, [50000, 1000000000, 1000000000])
+    
+    date_creation['young'] = fuzz.trimf(date_creation.universe, [0, 0, 5])
+    date_creation['medium'] = fuzz.trimf(date_creation.universe, [0, 5, 15])
+    date_creation['old'] = fuzz.trimf(date_creation.universe, [5, 15, 20])
+    
+    publication['low'] = fuzz.trimf(publication.universe, [0, 0, 1000])
+    publication['medium'] = fuzz.trimf(publication.universe, [0, 1000, 10000])
+    publication['high'] = fuzz.trimf(publication.universe, [1000, 10000, 10000])
+    
+    frequence['low'] = fuzz.trimf(frequence.universe, [0, 0, 25])
+    frequence['medium'] = fuzz.trimf(frequence.universe, [0, 25, 50])
+    frequence['high'] = fuzz.trimf(frequence.universe, [25, 50, 100])
+    
+    score['low'] = fuzz.trimf(score.universe, [0, 0, 50])
+    score['medium'] = fuzz.trimf(score.universe, [0, 50, 100])
+    score['high'] = fuzz.trimf(score.universe, [50, 100, 100])
+    
+    # Définition des règles
+    rules = []
+    if not disableAbonne and poidsAbonne > 0:
+        rules.append(ctrl.Rule(nombre['medium'], score['medium']))
+    if not disableAnnee and poidsAnnee > 0:
+        rules.append(ctrl.Rule(date_creation['medium'], score['medium']))
+    if not disablePublication and poidsPublication > 0:
+        rules.append(ctrl.Rule(publication['medium'], score['medium']))
+    if not disableFrequence and poidsFrequence > 0:
+        rules.append(ctrl.Rule(frequence['medium'], score['high']))
+    
+    # Création des systèmes de contrôle flou pour chaque critère
+    systems = {
+        'nombre': ctrl.ControlSystem([rules[0]]) if not disableAbonne and poidsAbonne > 0 else None,
+        'date_creation': ctrl.ControlSystem([rules[1]]) if not disableAnnee and poidsAnnee > 0 else None,
+        'publication': ctrl.ControlSystem([rules[2]]) if not disablePublication and poidsPublication > 0 else None,
+        'frequence': ctrl.ControlSystem([rules[3]]) if not disableFrequence and poidsFrequence > 0 else None
+    }
+    
+    # Calcul des scores pour chaque critère
+    scores = []
+    for criterion, system in systems.items():
+        if system:
+            simulation = ctrl.ControlSystemSimulation(system)
+            simulation.input[criterion] = {
+                'nombre': nombreAbonne,
+                'date_creation': nombreAnnee,
+                'publication': nombrePublication,
+                'frequence': nombreFrequence
+            }[criterion]
+            simulation.compute()
+            scores.append(simulation.output['score'])
+    
+    # Agrégation des scores en fonction de la méthode choisie
+    if aggregationMethod == 'moyenne':
+        final_score = np.mean(scores) if scores else 0
+    elif aggregationMethod == 'max':
+        final_score = np.max(scores) if scores else 0
+    elif aggregationMethod == 'combinaison':
+        weighted_scores = [
+            (poidsAbonne * scores[0] if not disableAbonne and poidsAbonne > 0 else 0),
+            (poidsAnnee * scores[1] if not disableAnnee and poidsAnnee > 0 else 0),
+            (poidsPublication * scores[2] if not disablePublication and poidsPublication > 0 else 0),
+            (poidsFrequence * scores[3] if not disableFrequence and poidsFrequence > 0 else 0)
+        ]
+        total_weights = sum([
+            poidsAbonne if not disableAbonne and poidsAbonne > 0 else 0,
+            poidsAnnee if not disableAnnee and poidsAnnee > 0 else 0,
+            poidsPublication if not disablePublication and poidsPublication > 0 else 0,
+            poidsFrequence if not disableFrequence and poidsFrequence > 0 else 0
+        ])
+        final_score = np.sum(weighted_scores) / total_weights if total_weights > 0 else 0
 
-date_creation['ancienne'] = fuzz.trimf(date_creation.universe, [1, 10, 10])
-date_creation['récente'] = fuzz.trimf(date_creation.universe, [0, 0, 1])
+    # Renvoyer le score calculé
+    return jsonify({"final_score": final_score})
 
-postes_publies['faible'] = fuzz.trimf(postes_publies.universe, [0, 0, 100])
-postes_publies['moyen'] = fuzz.trimf(postes_publies.universe, [50, 500, 1000])
-postes_publies['élevé'] = fuzz.trimf(postes_publies.universe, [200, 2000, 2000])
-
-frequence_publication['faible'] = fuzz.trimf(frequence_publication.universe, [0, 0, 5])
-frequence_publication['moyenne'] = fuzz.trimf(frequence_publication.universe, [5, 20, 30])
-frequence_publication['élevée'] = fuzz.trimf(frequence_publication.universe, [15, 100, 100])
-
-fiabilite['faible'] = fuzz.trimf(fiabilite.universe, [0, 0, 5])
-fiabilite['moyenne'] = fuzz.trimf(fiabilite.universe, [0, 5, 10])
-fiabilite['élevée'] = fuzz.trimf(fiabilite.universe, [5, 10, 10])
-fiabilite['très élevée'] = fuzz.trimf(fiabilite.universe, [7, 10, 10])
-
-# Définir les règles floues
-rule1 = ctrl.Rule(abonnés['élevé'] & date_creation['récente'] & postes_publies['élevé'] & frequence_publication['élevée'], fiabilite['très élevée'])
-rule2 = ctrl.Rule(abonnés['moyen'] & date_creation['ancienne'] & postes_publies['moyen'] & frequence_publication['moyenne'], fiabilite['moyenne'])
-rule3 = ctrl.Rule(abonnés['faible'] | date_creation['ancienne'] | postes_publies['faible'] | frequence_publication['faible'], fiabilite['faible'])
-rule4 = ctrl.Rule(abonnés['élevé'] & date_creation['récente'] & (postes_publies['moyen'] | frequence_publication['moyenne']), fiabilite['élevée'])
-
-# Créer le système de contrôle
-fiabilite_ctrl = ctrl.ControlSystem([rule1, rule2, rule3, rule4])
-fiabilite_calcul = ctrl.ControlSystemSimulation(fiabilite_ctrl)
-
-def calculer_score(abonnés_val, date_creation_val, postes_publies_val, frequence_publication_val):
-    fiabilite_calcul.input['abonnés'] = abonnés_val
-    fiabilite_calcul.input['date_creation'] = date_creation_val
-    fiabilite_calcul.input['postes_publies'] = postes_publies_val
-    fiabilite_calcul.input['frequence_publication'] = frequence_publication_val
-    fiabilite_calcul.compute()
-    return fiabilite_calcul.output['fiabilite']
+if __name__ == '__main__':
+    app.run(debug=True)
