@@ -472,14 +472,7 @@ function App() {
   };
   return (
     <div className="app-container">
-      {view === "form" && !formData && (
-        <FormulaireTweet onFormSubmit={handleFormSubmit} />
-      )}
-      {view === "menu" && <Menu crits={formData.criteres} onCriterionClick={handleCriterionClick} />}
-      {view === "Presentation Quality" && <PresentationQuality />}
-      {view === "Trustworthiness" && <Trustworthiness />}
-      {view === "Usefullness" && <TweetEvaluationForm />}
-      {view === "Completeness" && <Completeness />}
+      <Trustworthiness />
     </div>
   );
 }
