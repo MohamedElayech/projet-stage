@@ -32,9 +32,9 @@ export default function Text(){
     // }
 
 
-
+    const [texte,setTexte]=useState([{value:'',poid : ''}])
     const [qualite_texte,setQualiteTexte]=useState([{ value: '', poid: '' }])
-    const [presence_texte,setPresenceTexte]=useState([{ value: '', poid: '' }])
+    const [presencetexte,setPresenceTexte]=useState([{ value: '', poid: '' }])
     const [emojies,setEmojis]=useState([{ value: '', poid: '' }])
     const [syntaxique,setSyntaxique]=useState([{ value: '', poid: '' }])
     const [semantique,setSemantique]=useState([{ value: '', poid: '' }])
@@ -52,19 +52,17 @@ export default function Text(){
     const [positionHashtag,setPdositionHashtag]=useState([{ value: '', poid: '' }])
     const [textData,setTextData]=useState(null)    
 
-    const handleSubmit =(event) => {
-      console.log("wiii")
-    }
+    
 
     const handleQualitePoidChange = (event) => {
-        const poidValue =  event.target.value ;
+        const poidValue =  event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
         setQualiteTexte([{ value: qualite_texte[0].value, poid: poidValue }]);
         
       };
       
       const handlePresencePoidChange = (event) => {
         const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
-        setPresenceTexte([{ value: presence_texte[0].value, poid: poidValue }]);
+        setPresenceTexte([{ value: presencetexte[0].value, poid: poidValue }]);
       };
       
       const handleEmojisPoidChange = (event) => {
@@ -142,6 +140,10 @@ export default function Text(){
         const poidValue = event.target.parentNode.querySelector('input[type="checkbox"]').checked ? event.target.value : 0;
         setPdositionHashtag([{ value: positionHashtag[0].value, poid: poidValue }]);
       };
+      const handleTextChange = (event) =>{
+        const poidValue = document.getElementById('textt').checked ? event.target.value : 0;
+        setTexte([{ value: texte[0].value, poid: poidValue }]);
+      }
       useEffect(() => {
         async function fetchData() {
           try {
@@ -156,7 +158,7 @@ export default function Text(){
     
       useEffect(() => {
         if (textData) {
-          setQualiteTexte([{ value: textData.pourcentagemotsuniques, poid: qualite_texte[0].poid }]);
+          setPresenceTexte([{ value: textData.presencetext, poid: qualite_texte[0].poid }]);
           setMotsPhrase([{ value: textData.pourcentagemotsphrase, poid: motsPhrase[0].poid }]);
           setMotUnique([{ value: textData.pourcentagemotsuniques, poid: motUnique[0].poid }]);
           setMotsPhrase([{ value: textData.pourcentagemotsphrase, poid: motsPhrase[0].poid }]);
@@ -176,7 +178,7 @@ export default function Text(){
     
       const combinedData = {
         qualite_texte: qualite_texte[0],
-        presence_texte: presence_texte[0],
+        presence_texte: presencetexte[0],
         emojies: emojies[0],
         syntaxique: syntaxique[0],
         semantique: semantique[0],
@@ -192,8 +194,65 @@ export default function Text(){
         hashtags: hashtags[0],
         presenseHashtag: presenseHashtag[0],
         positionHashtag: positionHashtag[0],
+        texte: texte[0]
       };
-      console.log(combinedData)
+      // console.log(combinedData)
+      let syntax=0
+      let syment
+      const handleSubmit =(event) => {
+        // console.log("wiii")
+        let maxsyn=-1
+        let maxsynt=Math.max(maxsyn,parseFloat(motsPhrase[0].poid),parseFloat(motUnique[0].poid),parseFloat(parentheses[0].poid),parseFloat(fautesOrthographe[0].poid),parseFloat(abreviations[0].poid))
+    
+        let syntcri=[motsPhrase[0],motUnique[0],parentheses[0],fautesOrthographe[0],abreviations[0]]
+        for(let i=0;i<syntcri.length;i++){
+          // console.log(i)
+          if(parseFloat(syntcri[i].poid)===maxsynt){
+            syntax=syntcri[i].value
+          }
+        }
+        let maxsym=-1
+        let maxsyme=Math.max(maxsym,parseFloat(synonymes[0].poid),parseFloat(polysemie[0].poid),parseFloat(diffuculteGrammaticale[0].poid),parseFloat(crossreference[0].poid))
+        let symcri=[synonymes[0],polysemie[0],diffuculteGrammaticale[0],crossreference[0]]
+        for(let i=0;i<symcri.length;i++){
+          // console.log(i)
+          if(parseFloat(symcri[i].poid)===maxsyme){
+            syment=symcri[i].value
+          }
+        }
+        setSyntaxique([{ value: syntax, poid: syntaxique[0].poid }])
+        setSemantique([{ value: syment, poid: semantique[0].poid }])
+        if(syntaxique[0].poid>semantique[0].poid){
+          setQualiteTexte([{ value: syntaxique[0].value, poid: qualite_texte[0].poid }])
+        }else{
+          setQualiteTexte([{ value: semantique[0].value, poid: qualite_texte[0].poid }])
+        }
+        if(presenseHashtag[0].poid > positionHashtag[0].poid ){
+          setHashtags([{value:presenseHashtag[0].value , poid:hashtags[0].poid }])
+        }else{
+          setHashtags([{value: positionHashtag[0].value , poid : hashtags[0].poid}])
+        }
+        
+        let maxtext=Math.max(parseFloat(hashtags[0].poid),parseFloat(qualite_texte[0].poid),parseFloat(emojies[0].poid),parseFloat(presencetexte[0].poid))
+        let textlist=[hashtags[0],qualite_texte[0],emojies[0],presencetexte[0]]
+        for(let i=0;i<textlist.length;i++){
+          if(parseFloat(textlist[i].poid)==maxtext){
+            setTexte([{value : textlist[i].value , poid : texte[0].poid}])
+            break
+          }
+        }
+        // useEffect(()=>{
+        //   setSyntaxique([{ value: syntax, poid: syntaxique[0].poid }])
+        //   setSemantique([{ value: syment, poid: semantique[0].poid }])
+        // },[])
+        // console.log(maxsyme)
+        
+      // console.log(combinedData)
+      console.log(texte[0].value)
+
+
+
+      }
 
     return(
         
@@ -202,7 +261,7 @@ export default function Text(){
         <div className="text">
             <div className="textTitle">
                 <h2 className="pqheader">Texte</h2>
-                <input type="checkbox" defaultChecked/>
+                <input type="checkbox" defaultChecked id="textt"/>
             </div>
             
             <div className="presenceTexteConainer sousCritereContainer">
@@ -216,7 +275,13 @@ export default function Text(){
             </div>
 
             <div className="TextQuality sousCritereContainer">
+              <div className="testquality">
+              <input type="checkbox" defaultChecked/>
                 <h3>Lisibilité et clarté du texte</h3>
+                <input type="number" className="inputPoid" placeholder="poids" onChange={handleQualitePoidChange}/>
+              </div>
+
+                
                 <div className="textQualityContainer">
                     <div>
                             <div className="inputTable">
@@ -282,7 +347,7 @@ export default function Text(){
                             <tr>
                                 <td><input type="checkbox" defaultChecked onChange={handleCrossreferencePoidChange} /></td>
                                 <td>Pourcentage de références croisées</td>
-                                <td><input type="number" className="inputPoid" placeholder="poids" /></td>
+                                <td><input type="number" className="inputPoid" placeholder="poids" onChange={handleCrossreferencePoidChange}/></td>
                             </tr>
                             <tr>
                                 <td><input type="checkbox" defaultChecked /></td>
@@ -355,7 +420,7 @@ export default function Text(){
             <div className="soumettre sousCritereContainer">
                 <div className="textpoid">
                     <label htmlFor="">Ajouter le poids du texte</label>
-                    <input type="number" placeholder="Poids du texte" className="inputPoid" onChange={handleQualitePoidChange}/>
+                    <input type="number" placeholder="Poids du texte" className="inputPoid" onChange={handleTextChange}/>
                 </div>
                 <button type="submit" className="ajoutButtun" onClick={handleSubmit}>Soumettre</button>
             </div>

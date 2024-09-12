@@ -379,6 +379,13 @@ def position_hashtag(text):
         return "FORT"
     else:
         return "FAIBLE"
+    
+
+def presence_text(text):
+   if text != '':
+      return "FORT"
+   else:
+      return "FAIBLE"
 
 
 
@@ -392,7 +399,7 @@ image="https://pbs.twimg.com/media/F6AJ3HmWEAAzt7i?format=jpg&name=large"
 
 @app.route("/",methods=['GET'])
 def user():
-    
+    presencetext=presence_text(text)
     pourcentagemotsuniques=pourcentage_mots_uniques(text)
     pourcentagemotsphrase=pourcentage_mots_phrase(text)
     pourcentageparentheses=pourcentage_parentheses(text)
@@ -406,6 +413,7 @@ def user():
     positionhashtag=position_hashtag(text)
     emojis=contains_emoji(text)
     return jsonify({
+       'presencetext':presencetext,
        'pourcentagemotsuniques': pourcentagemotsuniques,
        'pourcentagemotsphrase' : pourcentagemotsphrase,
        'pourcentageparentheses' : pourcentageparentheses,
