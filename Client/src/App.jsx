@@ -3,6 +3,7 @@ import PresentationQuality from "./Pages/PresentationQuality/PresentationQuality
 import "./App.css";
 import Trustworthiness from "./Pages/Trustworthiness/Trustworthiness.jsx";
 import TweetEvaluationForm from "./Pages/Usefulness/Usefulness_inputs.jsx";
+import Completeness from "./Pages/Completeness/Completeness.jsx"
 // Le formulaire de tweet
 function FormulaireTweet({ onFormSubmit }) {
   const [formData, setFormData] = useState({
@@ -472,7 +473,14 @@ function App() {
   };
   return (
     <div className="app-container">
-      <Trustworthiness />
+       {view === "form" && !formData && (
+        <FormulaireTweet onFormSubmit={handleFormSubmit} />
+      )}
+      {view === "menu" && <Menu onCriterionClick={handleCriterionClick} crits={formData.criteres} />}
+      {view === "Trustworthinesss" && <Trustworthiness />}
+      {view === "Presentation Quality" && <PresentationQuality />}
+      {view === "Usefullness" && <TweetEvaluationForm />}
+      {view === "Completeness" && <Completeness formData={formData} />}
     </div>
   );
 }

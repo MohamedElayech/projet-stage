@@ -139,7 +139,7 @@ function Trustworthiness() {
     };
 
     return (
-        <React.Fragment>
+        <>
             {formulaire && (
                 <div className="global">
                     <div className="head">Calculateur de fiabilité</div>
@@ -295,7 +295,7 @@ function Trustworthiness() {
             </div>
 
 
-        </React.Fragment >
+        </>
     );
 
 }
