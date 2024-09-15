@@ -5,6 +5,8 @@ import './App.css'
 import PresentaionQuality from './Pages/PresentationQuality/PresentationQuality'
 import Home from './Pages/Home'
 import PresentaionQualityResult from './Pages/PresentationQuality/PresentationQualityResult'
+import{BrowserRouter,Route,Link} from 'react-router-dom'
+
 
 function App() {
   const [count, setCount] = useState(0)

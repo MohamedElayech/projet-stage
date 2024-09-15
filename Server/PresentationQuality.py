@@ -397,41 +397,91 @@ def hello():
 text="They chose #Amiens. And they will be well there! 🧑‍🎓 You crossed paths with them, 'colorful' today, you will cross paths with them every day tomorrow. Welcome and happy new school year to the more than 30,000 Amiens students! We are so happy to welcome you! 🫶 #JAE2023"
 image="https://pbs.twimg.com/media/F6AJ3HmWEAAzt7i?format=jpg&name=large"
 
-@app.route("/",methods=['GET'])
-def user():
-    presencetext=presence_text(text)
-    pourcentagemotsuniques=pourcentage_mots_uniques(text)
-    pourcentagemotsphrase=pourcentage_mots_phrase(text)
-    pourcentageparentheses=pourcentage_parentheses(text)
-    pourcentatgeabreviation=pourcentatge_abreviation(text)
-    pourcentagefautesorthographe=pourcentage_fautes_orthographe(text)
-    pourcentagecrossreference=pourcentage_cross_reference(text)
-    pourcentagedifficultgrammaticale=pourcentage_difficult_grammaticale(text)
-    pourcentagesynonymes=pourcentage_synonymes(text)
-    pourcentagepolysemie=pourcentage_polysemie(text)
-    presencehashtags=presence_hashtags(text)
-    positionhashtag=position_hashtag(text)
-    emojis=contains_emoji(text)
-    return jsonify({
-       'presencetext':presencetext,
-       'pourcentagemotsuniques': pourcentagemotsuniques,
-       'pourcentagemotsphrase' : pourcentagemotsphrase,
-       'pourcentageparentheses' : pourcentageparentheses,
-       'pourcentatgeabreviation' : pourcentatgeabreviation,
-       'pourcentagefautesorthographe' : pourcentagefautesorthographe,
-       'pourcentagecrossreference' : pourcentagecrossreference,
-       'pourcentagedifficultgrammaticale' : pourcentagedifficultgrammaticale,
-       'pourcentagesynonymes' : pourcentagesynonymes,
-       'pourcentagepolysemie' : pourcentagepolysemie,
-       'emojis' : emojis,
-       'presencehashtags' : presencehashtags,
-       'positionhashtag' : positionhashtag
+# @app.route("/",methods=['GET','POST'])
+# def user():
+#     presencetext=presence_text(text)
+#     pourcentagemotsuniques=pourcentage_mots_uniques(text)
+#     pourcentagemotsphrase=pourcentage_mots_phrase(text)
+#     pourcentageparentheses=pourcentage_parentheses(text)
+#     pourcentatgeabreviation=pourcentatge_abreviation(text)
+#     pourcentagefautesorthographe=pourcentage_fautes_orthographe(text)
+#     pourcentagecrossreference=pourcentage_cross_reference(text)
+#     pourcentagedifficultgrammaticale=pourcentage_difficult_grammaticale(text)
+#     pourcentagesynonymes=pourcentage_synonymes(text)
+#     pourcentagepolysemie=pourcentage_polysemie(text)
+#     presencehashtags=presence_hashtags(text)
+#     positionhashtag=position_hashtag(text)
+#     emojis=contains_emoji(text)
+#     return jsonify({
+#        'presencetext':presencetext,
+#        'pourcentagemotsuniques': pourcentagemotsuniques,
+#        'pourcentagemotsphrase' : pourcentagemotsphrase,
+#        'pourcentageparentheses' : pourcentageparentheses,
+#        'pourcentatgeabreviation' : pourcentatgeabreviation,
+#        'pourcentagefautesorthographe' : pourcentagefautesorthographe,
+#        'pourcentagecrossreference' : pourcentagecrossreference,
+#        'pourcentagedifficultgrammaticale' : pourcentagedifficultgrammaticale,
+#        'pourcentagesynonymes' : pourcentagesynonymes,
+#        'pourcentagepolysemie' : pourcentagepolysemie,
+#        'emojis' : emojis,
+#        'presencehashtags' : presencehashtags,
+#        'positionhashtag' : positionhashtag
                     
-                    })
+#                     })
       
+# @app.route('/', methods=['GET','POST'])
+# def handle_post(): 
+#     data = request.get_json()
+#     textcri = data.get('textcri')
+#     d='Data received successfully'
+#     return jsonify({'message': d})
+@app.route('/', methods=['GET', 'POST'])
+def handle_request():
+    global textcri_value
+    global res
+    if request.method == 'POST':
+        data = request.get_json()
+        textcri_value = data.get('textcri')
+        d = 'Data received successfully'
+
+        
+        match textcri_value:
+            case 'motsPhrase':
+                res=pourcentage_mots_phrase(text)
+            case 'motsunique':
+                res=pourcentage_mots_uniques(text)
+            case 'parentheses':
+                res=pourcentage_parentheses(text)
+            case 'fautesorthographe':
+                res=pourcentage_fautes_orthographe(text)
+            case 'abreviations':
+                res=pourcentatge_abreviation(text)
+            case 'synonymes' :
+                res=pourcentage_synonymes(text)
+            case 'polysemie':
+                res=pourcentage_polysemie(text)
+            case 'diffuculteGrammaticale':
+                res=pourcentage_difficult_grammaticale(text)
+            case 'crossreference':
+                res=pourcentage_cross_reference(text)
+            case 'presneceHashtag':
+                res=presence_hashtags(text)
+            case 'positionHashtag':
+                res=position_hashtag(text)
+            case 'emojies':
+                res=contains_emoji(text)
+            case 'presnecetext':
+                res=presence_text(text)
+        return jsonify({'message': 'textcri_value '})
+    else:
+        if textcri_value is not None:
+            return jsonify({ 'textcri': res})
+        else:
+            return jsonify({'message': 'No textcri value available'})
+
 
 if __name__=="__main__":
     app.run(debug=True,port=8080)
 
-
+# print("hello")
 # Set-ExecutionPolicy RemoteSigned -Scope Process

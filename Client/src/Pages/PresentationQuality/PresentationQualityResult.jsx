@@ -1,6 +1,15 @@
 import './Pqresult.css'
 
 export default function PresentaionQualityResult(){
+    async function getData() {
+        try {
+          const response = await fetch('http://localhost:8080');
+          const data = await response.json();
+          console.log(data)
+        } catch (error) {
+          console.error(error);
+        }
+      }
     return(
         <div className='resultatQP'>
             <div className="sousCriters">

@@ -144,115 +144,199 @@ export default function Text(){
         const poidValue = document.getElementById('textt').checked ? event.target.value : 0;
         setTexte([{ value: texte[0].value, poid: poidValue }]);
       }
-      useEffect(() => {
-        async function fetchData() {
-          try {
-            const response = await axios.get('http://localhost:8080/');
-            setTextData(response.data);
-          } catch (error) {
-            console.error(error);
-          }
-        }
-        fetchData();
-      }, []);
+      // useEffect(() => {
+      //   async function fetchData() {
+      //     try {
+      //       const response = await axios.get('http://localhost:8080/');
+      //       setTextData(response.data);
+      //     } catch (error) {
+      //       console.error(error);
+      //     }
+      //   }
+      //   fetchData();
+      // }, []);
+      
+      const chosefunction = async  (event) => {
+        event.preventDefault();
     
-      useEffect(() => {
-        if (textData) {
-          setPresenceTexte([{ value: textData.presencetext, poid: qualite_texte[0].poid }]);
-          setMotsPhrase([{ value: textData.pourcentagemotsphrase, poid: motsPhrase[0].poid }]);
-          setMotUnique([{ value: textData.pourcentagemotsuniques, poid: motUnique[0].poid }]);
-          setMotsPhrase([{ value: textData.pourcentagemotsphrase, poid: motsPhrase[0].poid }]);
-          setAbreviations([{ value: textData.pourcentatgeabreviation, poid: abreviations[0].poid }]);
-          setParenthese([{ value: textData.pourcentageparentheses, poid: parentheses[0].poid }]);
-          setFautesOrthographe([{ value: textData.pourcentagefautesorthographe, poid: fautesOrthographe[0].poid }]);
-          setCrossreference([{ value: textData.pourcentagecrossreference, poid: crossreference[0].poid }]);
-          setDiffuculteGrammaticale([{ value: textData.pourcentagedifficultgrammaticale, poid: diffuculteGrammaticale[0].poid }]);
-          setPolysemie([{ value: textData.pourcentagepolysemie, poid: polysemie[0].poid }]);
-          setSynonymes([{ value: textData.pourcentagesynonymes, poid: synonymes[0].poid }]);
-          setHashtags([{ value: textData.pourcentagehashtags, poid: hashtags[0].poid }]);
-          setPresenseHashtag([{ value: textData.presencehashtags, poid: presenseHashtag[0].poid }]);
-          setPdositionHashtag([{ value: textData.positionhashtag, poid: positionHashtag[0].poid }]);
-          setEmojis([{ value: textData.emojis, poid: emojies[0].poid }]);
-        }
-      }, [textData]);
-    
-      const combinedData = {
-        qualite_texte: qualite_texte[0],
-        presence_texte: presencetexte[0],
-        emojies: emojies[0],
-        syntaxique: syntaxique[0],
-        semantique: semantique[0],
-        motUnique: motUnique[0],
-        motsPhrase: motsPhrase[0],
-        abreviations: abreviations[0],
-        parenthese: parentheses[0],
-        fautesOrthographe: fautesOrthographe[0],
-        crossreference: crossreference[0],
-        diffuculteGrammaticale: diffuculteGrammaticale[0],
-        polysemie: polysemie[0],
-        synonymes: synonymes[0],
-        hashtags: hashtags[0],
-        presenseHashtag: presenseHashtag[0],
-        positionHashtag: positionHashtag[0],
-        texte: texte[0]
-      };
-      // console.log(combinedData)
-      let syntax=0
-      let syment
-      const handleSubmit =(event) => {
-        // console.log("wiii")
-        let maxsyn=-1
-        let maxsynt=Math.max(maxsyn,parseFloat(motsPhrase[0].poid),parseFloat(motUnique[0].poid),parseFloat(parentheses[0].poid),parseFloat(fautesOrthographe[0].poid),parseFloat(abreviations[0].poid))
-    
-        let syntcri=[motsPhrase[0],motUnique[0],parentheses[0],fautesOrthographe[0],abreviations[0]]
-        for(let i=0;i<syntcri.length;i++){
-          // console.log(i)
-          if(parseFloat(syntcri[i].poid)===maxsynt){
-            syntax=syntcri[i].value
-          }
-        }
-        let maxsym=-1
-        let maxsyme=Math.max(maxsym,parseFloat(synonymes[0].poid),parseFloat(polysemie[0].poid),parseFloat(diffuculteGrammaticale[0].poid),parseFloat(crossreference[0].poid))
-        let symcri=[synonymes[0],polysemie[0],diffuculteGrammaticale[0],crossreference[0]]
-        for(let i=0;i<symcri.length;i++){
-          // console.log(i)
-          if(parseFloat(symcri[i].poid)===maxsyme){
-            syment=symcri[i].value
-          }
-        }
-        setSyntaxique([{ value: syntax, poid: syntaxique[0].poid }])
-        setSemantique([{ value: syment, poid: semantique[0].poid }])
-        if(syntaxique[0].poid>semantique[0].poid){
-          setQualiteTexte([{ value: syntaxique[0].value, poid: qualite_texte[0].poid }])
-        }else{
-          setQualiteTexte([{ value: semantique[0].value, poid: qualite_texte[0].poid }])
-        }
-        if(presenseHashtag[0].poid > positionHashtag[0].poid ){
-          setHashtags([{value:presenseHashtag[0].value , poid:hashtags[0].poid }])
-        }else{
-          setHashtags([{value: positionHashtag[0].value , poid : hashtags[0].poid}])
-        }
-        
-        let maxtext=Math.max(parseFloat(hashtags[0].poid),parseFloat(qualite_texte[0].poid),parseFloat(emojies[0].poid),parseFloat(presencetexte[0].poid))
-        let textlist=[hashtags[0],qualite_texte[0],emojies[0],presencetexte[0]]
-        for(let i=0;i<textlist.length;i++){
-          if(parseFloat(textlist[i].poid)==maxtext){
-            setTexte([{value : textlist[i].value , poid : texte[0].poid}])
+        let syntax=''
+        let maxsynt=Math.max(parseFloat(motsPhrase[0].poid),parseFloat(motUnique[0].poid),parseFloat(parentheses[0].poid),parseFloat(fautesOrthographe[0].poid),parseFloat(abreviations[0].poid))
+        switch(maxsynt){
+          case parseFloat(motsPhrase[0].poid):
+            syntax='motsPhrase'
             break
-          }
+          case parseFloat(motUnique[0].poid):
+            syntax='motsunique'
+            break
+          case parseFloat(parentheses[0].poid):
+            syntax='parentheses'
+            break
+          case parseFloat(fautesOrthographe[0].poid):
+            syntax='fautesorthographe'
+            break
+          case parseFloat(abreviations[0].poid):
+            syntax='abreviations'
         }
-        // useEffect(()=>{
-        //   setSyntaxique([{ value: syntax, poid: syntaxique[0].poid }])
-        //   setSemantique([{ value: syment, poid: semantique[0].poid }])
-        // },[])
-        // console.log(maxsyme)
+        let semant=''
+    
+        let maxsyme = Math.max(parseFloat(synonymes[0].poid), parseFloat(polysemie[0].poid), parseFloat(diffuculteGrammaticale[0].poid), parseFloat(crossreference[0].poid));
         
-      // console.log(combinedData)
-      console.log(texte[0].value)
 
+        switch (maxsyme) {
+          case parseFloat(synonymes[0].poid):
+            semant = 'synonymes';
+            break;
+          case parseFloat(polysemie[0].poid):
+            semant = 'polysemie';
+            break;
+          case parseFloat(diffuculteGrammaticale[0].poid):
+            semant = 'diffuculteGrammaticale';
+            break;
+          case parseFloat(crossreference[0].poid):
+            semant = 'crossreference';
+            break;
+        }
+       
+        let textQuality=''
+        
+        if(syntaxique[0].poid>semantique[0].poid){
+          textQuality=syntax
+        }else{
+          textQuality=semant
+        }
+        let hashtag=''
+        if(presenseHashtag[0].poid > positionHashtag[0].poid ){
+          hashtag='presneceHashtag'
+        }else{
+          hashtag='positionHashtag'
+        }
+        let emoji='emojies'
+        let presence='presnecetext'
+        
+       
+        let maxtext = Math.max(parseFloat(hashtags[0].poid), parseFloat(qualite_texte[0].poid), parseFloat(emojies[0].poid), parseFloat(presencetexte[0].poid));
+        let textcri = '';
 
+        switch (maxtext) {
+          case parseFloat(hashtags[0].poid):
+            textcri = hashtag;
+            break;
+          case parseFloat(qualite_texte[0].poid):
+            textcri = textQuality;
+            break;
+          case parseFloat(emojies[0].poid):
+            textcri = emoji;
+            break;
+          case parseFloat(presencetexte[0].poid):
+            textcri = presence;
+            break;
+        }
+        const response = await fetch('http://localhost:8080', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ textcri }),
+        });
 
+        console.log(textcri)
       }
+    
+      // useEffect(() => {
+      //   if (textData) {
+      //     setPresenceTexte([{ value: textData.presencetext, poid: qualite_texte[0].poid }]);
+      //     setMotsPhrase([{ value: textData.pourcentagemotsphrase, poid: motsPhrase[0].poid }]);
+      //     setMotUnique([{ value: textData.pourcentagemotsuniques, poid: motUnique[0].poid }]);
+      //     setMotsPhrase([{ value: textData.pourcentagemotsphrase, poid: motsPhrase[0].poid }]);
+      //     setAbreviations([{ value: textData.pourcentatgeabreviation, poid: abreviations[0].poid }]);
+      //     setParenthese([{ value: textData.pourcentageparentheses, poid: parentheses[0].poid }]);
+      //     setFautesOrthographe([{ value: textData.pourcentagefautesorthographe, poid: fautesOrthographe[0].poid }]);
+      //     setCrossreference([{ value: textData.pourcentagecrossreference, poid: crossreference[0].poid }]);
+      //     setDiffuculteGrammaticale([{ value: textData.pourcentagedifficultgrammaticale, poid: diffuculteGrammaticale[0].poid }]);
+      //     setPolysemie([{ value: textData.pourcentagepolysemie, poid: polysemie[0].poid }]);
+      //     setSynonymes([{ value: textData.pourcentagesynonymes, poid: synonymes[0].poid }]);
+      //     setHashtags([{ value: textData.pourcentagehashtags, poid: hashtags[0].poid }]);
+      //     setPresenseHashtag([{ value: textData.presencehashtags, poid: presenseHashtag[0].poid }]);
+      //     setPdositionHashtag([{ value: textData.positionhashtag, poid: positionHashtag[0].poid }]);
+      //     setEmojis([{ value: textData.emojis, poid: emojies[0].poid }]);
+      //   }
+      // }, [textData]);
+    
+      // const combinedData = {
+      //   qualite_texte: qualite_texte[0],
+      //   presence_texte: presencetexte[0],
+      //   emojies: emojies[0],
+      //   syntaxique: syntaxique[0],
+      //   semantique: semantique[0],
+      //   motUnique: motUnique[0],
+      //   motsPhrase: motsPhrase[0],
+      //   abreviations: abreviations[0],
+      //   parenthese: parentheses[0],
+      //   fautesOrthographe: fautesOrthographe[0],
+      //   crossreference: crossreference[0],
+      //   diffuculteGrammaticale: diffuculteGrammaticale[0],
+      //   polysemie: polysemie[0],
+      //   synonymes: synonymes[0],
+      //   hashtags: hashtags[0],
+      //   presenseHashtag: presenseHashtag[0],
+      //   positionHashtag: positionHashtag[0],
+      //   texte: texte[0]
+      // };
+      // // console.log(combinedData)
+      // let syntax=0
+      // let syment
+      // const handleSubmit =(event) => {
+      //   // console.log("wiii")
+      //   let maxsyn=-1
+      //   let maxsynt=Math.max(maxsyn,parseFloat(motsPhrase[0].poid),parseFloat(motUnique[0].poid),parseFloat(parentheses[0].poid),parseFloat(fautesOrthographe[0].poid),parseFloat(abreviations[0].poid))
+    
+      //   let syntcri=[motsPhrase[0],motUnique[0],parentheses[0],fautesOrthographe[0],abreviations[0]]
+      //   for(let i=0;i<syntcri.length;i++){
+      //     // console.log(i)
+      //     if(parseFloat(syntcri[i].poid)===maxsynt){
+      //       syntax=syntcri[i].value
+      //     }
+      //   }
+      //   let maxsym=-1
+      //   let maxsyme=Math.max(maxsym,parseFloat(synonymes[0].poid),parseFloat(polysemie[0].poid),parseFloat(diffuculteGrammaticale[0].poid),parseFloat(crossreference[0].poid))
+      //   let symcri=[synonymes[0],polysemie[0],diffuculteGrammaticale[0],crossreference[0]]
+      //   for(let i=0;i<symcri.length;i++){
+      //     // console.log(i)
+      //     if(parseFloat(symcri[i].poid)===maxsyme){
+      //       syment=symcri[i].value
+      //     }
+      //   }
+      //   setSyntaxique([{ value: syntax, poid: syntaxique[0].poid }])
+      //   setSemantique([{ value: syment, poid: semantique[0].poid }])
+      //   if(syntaxique[0].poid>semantique[0].poid){
+      //     setQualiteTexte([{ value: syntaxique[0].value, poid: qualite_texte[0].poid }])
+      //   }else{
+      //     setQualiteTexte([{ value: semantique[0].value, poid: qualite_texte[0].poid }])
+      //   }
+      //   if(presenseHashtag[0].poid > positionHashtag[0].poid ){
+      //     setHashtags([{value:presenseHashtag[0].value , poid:hashtags[0].poid }])
+      //   }else{
+      //     setHashtags([{value: positionHashtag[0].value , poid : hashtags[0].poid}])
+      //   }
+        
+      //   let maxtext=Math.max(parseFloat(hashtags[0].poid),parseFloat(qualite_texte[0].poid),parseFloat(emojies[0].poid),parseFloat(presencetexte[0].poid))
+      //   let textlist=[hashtags[0],qualite_texte[0],emojies[0],presencetexte[0]]
+      //   for(let i=0;i<textlist.length;i++){
+      //     if(parseFloat(textlist[i].poid)==maxtext){
+      //       setTexte([{value : textlist[i].value , poid : texte[0].poid}])
+      //       break
+      //     }
+      //   }
+      //   // useEffect(()=>{
+      //   //   setSyntaxique([{ value: syntax, poid: syntaxique[0].poid }])
+      //   //   setSemantique([{ value: syment, poid: semantique[0].poid }])
+      //   // },[])
+      //   // console.log(maxsyme)
+        
+      // // console.log(combinedData)
+      // console.log(texte[0].value)
+
+
+
+      // }
 
     return(
         
@@ -422,7 +506,7 @@ export default function Text(){
                     <label htmlFor="">Ajouter le poids du texte</label>
                     <input type="number" placeholder="Poids du texte" className="inputPoid" onChange={handleTextChange}/>
                 </div>
-                <button type="submit" className="ajoutButtun" onClick={handleSubmit}>Soumettre</button>
+                <button type="submit" className="ajoutButtun" onClick={chosefunction}>Soumettre</button>
             </div>
             
         </div>
