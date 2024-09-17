@@ -10,7 +10,7 @@ export default function Home(){
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const response = await fetch('http://localhost:8080/word_s', {
+        const response = await fetch('http://localhost:8080/', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ text}),

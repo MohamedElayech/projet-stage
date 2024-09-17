@@ -9,6 +9,9 @@ from nltk.corpus import wordnet
 nltk.download('omw-1.4')
 nltk.download('wordnet')
 from nltk.corpus import wordnet as wn
+import cv2
+import numpy as np
+# import requests
 
 
 app = Flask(__name__)
@@ -390,8 +393,70 @@ def presence_text(text):
 
 
      
-def hello():
-    return "hello"
+
+
+def rate_image_clarity(image_url):
+  """Rates image clarity on a scale of 0 to 1, considering dimensions.
+
+  Args:
+      image_url: URL of the image.
+
+  Returns:
+      Clarity score between 0 and 1.
+  """
+
+  try:
+    # Fetch image
+    response = requests.get(image_url, stream=True)
+    img_array = np.asarray(bytearray(response.content), dtype=np.uint8)
+    img = cv2.imdecode(img_array, cv2.IMREAD_GRAYSCALE)
+
+    # Calculate image dimensions
+    height, width = img.shape
+
+    # Calculate gradient magnitude
+    grad_x = cv2.Sobel(img, cv2.CV_64F, 1, 0, ksize=3)
+    grad_y = cv2.Sobel(img, cv2.CV_64F, 0, 1, ksize=3)
+    gradient_magnitude = np.sqrt(grad_x**2 + grad_y**2)
+
+    # Calculate Laplacian variance
+    laplacian = cv2.Laplacian(img, cv2.CV_64F)
+    focus_measure = laplacian.var()
+
+    # Define max_focus_measure (adjust as needed)
+    max_focus_measure = 1500
+
+    # Calculate gradient max
+    max_gradient_magnitude = 100
+
+    # Estimate noise (optional):
+    # You can use methods like Fast Fourier Transform (FFT) or wavelet analysis
+
+    # Combine metrics and normalize, including dimension factor
+    area = width * height  # Calculate image area in pixels
+    print(width,height)
+    dimension_factor = min(area / (7680 * 4320), 1)  # Normalize based on reference area (adjust as needed)
+    clarity_score = (
+        0.33 * (focus_measure / max_focus_measure)
+        + 0.33 * (np.mean(gradient_magnitude) / max_gradient_magnitude)
+        + 0.33* dimension_factor
+    )
+    clarity_score = min(clarity_score, 1)  # Ensure score stays between 0 and 1
+
+    if(clarity_score<0.3):
+      return "FAIBLE"
+    elif(clarity_score<0.5):
+      return "MOYEN"
+    else:
+      return "FORT"
+  except Exception as e:
+    print(f"Error processing image: {e}")
+    return 0
+
+# # Example usage:
+# image_url = "https://pbs.twimg.com/media/FoD0Em5X0AEVKXz?format=jpg&name=large"
+# clarity = rate_image_clarity(image_url)
+# print(clarity)
 
 
 text="They chose #Amiens. And they will be well there! 🧑‍🎓 You crossed paths with them, 'colorful' today, you will cross paths with them every day tomorrow. Welcome and happy new school year to the more than 30,000 Amiens students! We are so happy to welcome you! 🫶 #JAE2023"
@@ -435,13 +500,18 @@ image="https://pbs.twimg.com/media/F6AJ3HmWEAAzt7i?format=jpg&name=large"
 #     textcri = data.get('textcri')
 #     d='Data received successfully'
 #     return jsonify({'message': d})
-@app.route('/', methods=['GET', 'POST'])
+# global textcri_value
+res=''
+resPresentationQuality={}
+@app.route('/text', methods=['GET', 'POST'])
 def handle_request():
+    global text_poid
     global textcri_value
     global res
     if request.method == 'POST':
         data = request.get_json()
         textcri_value = data.get('textcri')
+        text_poid=data.get('poidText')
         d = 'Data received successfully'
 
         
@@ -472,12 +542,33 @@ def handle_request():
                 res=contains_emoji(text)
             case 'presnecetext':
                 res=presence_text(text)
+        global resPresentationQuality
+        resPresentationQuality['text']=res
         return jsonify({'message': 'textcri_value '})
     else:
         if textcri_value is not None:
-            return jsonify({ 'textcri': res})
+            return jsonify({ 'text': text_poid})
         else:
             return jsonify({'message': 'No textcri value available'})
+
+# @app.route('/image', methods=['GET', 'POST'])
+# def resImage():
+#     global res1
+#     res1=rate_image_clarity(image)
+    
+#     if request.method == 'POST':
+#         data = request.get_json()
+#         imagecri_value = data.get('imagecri')
+#         if(imagecri_value!="imageClarity"):
+#            res1=imagecri_value
+#         resPresentationQuality['image']=res1
+#     else:
+#        return jsonify({'image':res1})
+    
+# @app.route('/video',methods=['GET','POST'])
+# def resVideo():
+#    global res2
+#    res2=rate_image_clarity(image)
 
 
 if __name__=="__main__":

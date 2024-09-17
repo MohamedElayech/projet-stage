@@ -231,10 +231,14 @@ export default function Text(){
             textcri = presence;
             break;
         }
-        const response = await fetch('http://localhost:8080', {
+        let data={
+          'textcri':textcri,
+          'poidText':parseFloat(texte[0].poid)
+        }
+        const response = await fetch('http://localhost:8080/text', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ textcri }),
+          body: JSON.stringify(data)
         });
 
         console.log(textcri)
