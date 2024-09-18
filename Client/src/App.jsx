@@ -3,7 +3,7 @@ import PresentationQuality from "./Pages/PresentationQuality/PresentationQuality
 import "./App.css";
 import Trustworthiness from "./Pages/Trustworthiness/Trustworthiness.jsx";
 import TweetEvaluationForm from "./Pages/Usefulness/Usefulness_inputs.jsx";
-import Completeness from "./Pages/Completeness/Completeness.jsx";
+//import Completeness from "./Pages/Completeness/Completeness.jsx";
 // Le formulaire de tweet
 function FormulaireTweet({ onFormSubmit }) {
   const [formData, setFormData] = useState({

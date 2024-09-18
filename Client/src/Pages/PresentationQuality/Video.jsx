@@ -9,11 +9,18 @@ const [vidQuality, setVidQuality] = useState({
     presenceVid: '',
     miniature: '',
 });
+const [poidsVidQuality,setPoidsVidQuality]= useState({
+  poidPresenceVid: 0,
+  poidsMiniature: 0,
+});
 const handleVidQualityChange = (event) => {
     const { name, value } = event.target;
     setVidQuality((prevVidQuality) => ({ ...prevVidQuality, [name]: value }));
   };
-
+const handlePoidsVidQuality = (event) => {
+  const { name, value } = event.target;
+  setPoidsVidQuality((prevPoidsVidQuality) => ({ ...prevPoidsVidQuality, [name]: value }));
+};
   return(
     <div className="picto">            
     
@@ -28,7 +35,7 @@ const handleVidQualityChange = (event) => {
               <option value="Non">Non</option>
             </select>
             <label>Poids:</label>
-            <input type="number" className="weight"></input>
+            <input type="number" className="weight" name="poidsPresenceVid" value={poidsVidQuality.poidPresenceVid} onChange={handlePoidsVidQuality}></input>
           </label>
           <br />
           <label className="Star">
@@ -36,7 +43,7 @@ const handleVidQualityChange = (event) => {
             Qualité de miniature:
             <div></div>
             <label>Poids:</label>
-            <input type="number" className="weight"></input>
+            <input type="number" className="weight" name="poidsMiniature" value={poidsVidQuality.poidsMiniature } onChange={handlePoidsVidQuality}></input>
           </label>
           <br />
           <Add />

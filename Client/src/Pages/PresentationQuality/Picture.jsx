@@ -5,15 +5,26 @@ import Add from './Add';
 import './pic.css';
 export default function Picture(){
 const [imgQuality, setImgQuality] = useState({
-    realPhotoUsage: '',
-    photoClarity: '',
-    strategicPhotoChoice: ''
+    realPhotoUsage: [],
+    photoClarity: [],
+    strategicPhotoChoice: []
+});
+const [poidsImg, setPoidsImg]=useState({
+  poidsrealPhotoUsage: 0,
+  poidsphotoClarity: 0,
+  poidsstrategicPhotoChoice: 0
 });
 const handleImgQualityChange = (event) => {
     const { name, value } = event.target;
     setImgQuality((prevImgQuality) => ({ ...prevImgQuality, [name]: value }));
     console.log(imgQuality);
   };
+  const handlePoidsImgChange = (event) => {
+    const name = event.target.name;
+    setPoidsImg((prevPoidsImg) => ({ ...prevPoidsImg, [name]: event.target.value }));
+    
+  };
+  console.log(poidsImg);
   return(
     
     <div className="picto">
@@ -29,7 +40,7 @@ const handleImgQualityChange = (event) => {
               <option value="fort">Fort</option>
             </select>
             <label className="label">Poids:</label>
-            <input type="number" className="weight"></input>
+            <input type="number" name="poidsrealPhotoUsage" value={poidsImg.poidsrealPhotoUsage} className="weight"  onChange={handlePoidsImgChange}></input>
           </div>
           <br />
           <div className="Star">
@@ -37,7 +48,7 @@ const handleImgQualityChange = (event) => {
             Clarté de la photo:
             <div></div>
             <label className="label">Poids:</label>
-            <input type="number" className="weight"></input>
+            <input type="number" name="poidsphotoClarity" value={poidsImg.poidsphotoClarity} className="weight" onChange={handlePoidsImgChange}></input>
           </div>
           <br />
           <div className="Star">
@@ -50,7 +61,7 @@ const handleImgQualityChange = (event) => {
               <option value="fort">Fort</option>
             </select>
             <label className="label">Poids:</label>
-            <input type="number" className="weight"></input>
+            <input type="number" className="weight" name="strategicPhotoChoice" value={poidsImg.poidsstrategicPhotoChoice} onChange={handlePoidsImgChange}></input>
           
           </div>
           <Add />
