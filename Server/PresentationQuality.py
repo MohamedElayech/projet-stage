@@ -547,7 +547,7 @@ def handle_request():
         return jsonify({'message': 'textcri_value '})
     else:
         if textcri_value is not None:
-            return jsonify({ 'text': text_poid})
+            return jsonify({ 'text': res})
         else:
             return jsonify({'message': 'No textcri value available'})
 
