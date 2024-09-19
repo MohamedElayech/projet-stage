@@ -2,6 +2,7 @@
 import InputPoid from "./InputPoid"
 import { useState, useEffect } from "react"
 import axios from 'axios'
+import Add from "./Add"
 import "./text.css"
 
 export default function Text(){
@@ -490,7 +491,7 @@ export default function Text(){
             </div>
             <div className="others sousCritereContainer">
                 <h3>Ajouter des autres critères</h3>
-                <div className="ajoutCritere">
+                {/* <div className="ajoutCritere">
                     <input type="checkbox" defaultChecked/>
                     <input type="text" placeholder="Nom du critère" />
                     <input type="number" placeholder="Poids du critere"/>
@@ -503,7 +504,8 @@ export default function Text(){
                 </div>
                 <div className="ajoutButtonContainer">
                     <button className="ajoutButtun">Ajouter</button>
-                </div>
+                </div> */}
+                <Add></Add>
             </div>
             <div className="soumettre sousCritereContainer">
                 <div className="textpoid">

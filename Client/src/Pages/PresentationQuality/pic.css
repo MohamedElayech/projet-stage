@@ -1,0 +1,57 @@
+.picto{
+    border: 1px solid #00acee;
+    border-radius: 15px;
+    padding: 5% 10%;
+    box-shadow: 8px 8px 24px #00abee42 ;
+    margin: 100px auto;
+    width:800px;
+
+}
+
+.weight{
+    width: 50px;
+    height:20px;
+    
+    float:right;
+}
+.Star{
+    margin-top: 20px;
+    display: grid;
+    grid-template-columns: 1fr 4fr 2fr 2fr 2fr ;
+    grid-gap: 10px; 
+}
+select{
+    height:20px;
+    cursor: pointer;
+
+}
+.submit{
+    margin-top:20px;
+    background-color: #0084ff; /* Light blue */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 25px; /* Slightly rounded corners */
+    text-decoration: none; /* Remove default link underline */
+    font-weight: bold;
+    display: inline-block;
+    cursor: pointer;
+}
+.titre{
+    text-align: center;
+    margin-top: 50px;
+}
+.imgsub{
+    padding: 2vh 5vw;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+.imgsub button{
+    padding: 10px;
+    font-weight: bold;
+    color: white;
+    background-color: #00acee;
+    border: 2px solid #00acee;
+    border-radius: 8px;
+    cursor: pointer;
+}

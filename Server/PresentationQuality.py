@@ -462,6 +462,7 @@ def rate_image_clarity(image_url):
 text="They chose #Amiens. And they will be well there! 🧑‍🎓 You crossed paths with them, 'colorful' today, you will cross paths with them every day tomorrow. Welcome and happy new school year to the more than 30,000 Amiens students! We are so happy to welcome you! 🫶 #JAE2023"
 image="https://pbs.twimg.com/media/F6AJ3HmWEAAzt7i?format=jpg&name=large"
 
+post={}
 # @app.route("/",methods=['GET','POST'])
 # def user():
 #     presencetext=presence_text(text)
@@ -517,31 +518,31 @@ def handle_request():
         
         match textcri_value:
             case 'motsPhrase':
-                res=pourcentage_mots_phrase(text)
+                res=pourcentage_mots_phrase(post['text'])
             case 'motsunique':
-                res=pourcentage_mots_uniques(text)
+                res=pourcentage_mots_uniques(post['text'])
             case 'parentheses':
-                res=pourcentage_parentheses(text)
+                res=pourcentage_parentheses(post['text'])
             case 'fautesorthographe':
-                res=pourcentage_fautes_orthographe(text)
+                res=pourcentage_fautes_orthographe(post['text'])
             case 'abreviations':
-                res=pourcentatge_abreviation(text)
+                res=pourcentatge_abreviation(post['text'])
             case 'synonymes' :
-                res=pourcentage_synonymes(text)
+                res=pourcentage_synonymes(post['text'])
             case 'polysemie':
-                res=pourcentage_polysemie(text)
+                res=pourcentage_polysemie(post['text'])
             case 'diffuculteGrammaticale':
-                res=pourcentage_difficult_grammaticale(text)
+                res=pourcentage_difficult_grammaticale(post['text'])
             case 'crossreference':
-                res=pourcentage_cross_reference(text)
+                res=pourcentage_cross_reference(post['text'])
             case 'presneceHashtag':
-                res=presence_hashtags(text)
+                res=presence_hashtags(post['text'])
             case 'positionHashtag':
-                res=position_hashtag(text)
+                res=position_hashtag(post['text'])
             case 'emojies':
-                res=contains_emoji(text)
+                res=contains_emoji(post['text'])
             case 'presnecetext':
-                res=presence_text(text)
+                res=presence_text(post['text'])
         global resPresentationQuality
         resPresentationQuality['text']=res
         return jsonify({'message': 'textcri_value '})
@@ -551,26 +552,40 @@ def handle_request():
         else:
             return jsonify({'message': 'No textcri value available'})
 
-# @app.route('/image', methods=['GET', 'POST'])
-# def resImage():
-#     global res1
-#     res1=rate_image_clarity(image)
+@app.route('/image', methods=['GET', 'POST'])
+def resImage():
+    global res1
+    res1=rate_image_clarity(post['image'])
     
-#     if request.method == 'POST':
-#         data = request.get_json()
-#         imagecri_value = data.get('imagecri')
-#         if(imagecri_value!="imageClarity"):
-#            res1=imagecri_value
-#         resPresentationQuality['image']=res1
-#     else:
-#        return jsonify({'image':res1})
+    if request.method == 'POST':
+        data = request.get_json()
+        imagecri_value = data.get('imagecri')
+        if(imagecri_value!="imageClarity"):
+           res1=imagecri_value
+        resPresentationQuality['image']=res1
+
+        return resPresentationQuality
+    else:
+       return jsonify({'image':res1})
     
-# @app.route('/video',methods=['GET','POST'])
-# def resVideo():
-#    global res2
-#    res2=rate_image_clarity(image)
+@app.route('/video',methods=['GET','POST'])
+def resVideo():
+   global res2
+   res2=rate_image_clarity(post['video'])
 
+@app.route('/home', methods=['GET', 'POST'])
+def importData():
+    global post
+    if request.method == 'POST':
+        data = request.get_json()
+        post['text'] = data.get('textcontent')
+        post['image'] = data.get('imagecontent')
+        post['video'] = data.get('videocontent')
+        return jsonify({'post': post})
+    else:
+        return jsonify({'message': post})
 
+   
 if __name__=="__main__":
     app.run(debug=True,port=8080)
 
