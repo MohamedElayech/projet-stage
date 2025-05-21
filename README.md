@@ -12,7 +12,7 @@ Le projet a été réalisé dans le cadre d’un stage d’été au **Laboratoir
 - Flask
 - Postman (tests API)
 - Fuzzy Logic
-- Scrum (méthodologie agile)
+
 
 ---
 
